@@ -456,7 +456,7 @@ def main():
         logging_dir="./logs/wandb/",
         num_train_epochs=1,             # Total number of training epochs
         per_device_train_batch_size=16,  # Batch size per device during training
-        per_device_eval_batch_size=16,   # Batch size for evaluation
+        per_device_eval_batch_size=16,   # Batch size for evaluation 
         gradient_accumulation_steps=2,  # Accumulate gradients to simulate larger batch size
         learning_rate=1e-6,            # Initial learning rate for AdamW optimizer
         warmup_ratio=0.1,              # Linear warmup over warmup_ratio fraction of training steps
