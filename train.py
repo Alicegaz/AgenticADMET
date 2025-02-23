@@ -413,9 +413,9 @@ class GRPOTrainer2(GRPOTrainer):
         return loss
 
 def main():
-    MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
+    # MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
     # MODEL_NAME = "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
-    # MODEL_NAME = "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B" #DeepSeek-R1-Distill-Qwen-1.5B-GRPO
+    MODEL_NAME = "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B" #DeepSeek-R1-Distill-Qwen-1.5B-GRPO
     # MODEL_NAME = "nickypro/tinyllama-15M"
     OUTPUT_DIR = "data/Qwen-GRPO-training" # For saving our trained model
 
@@ -455,8 +455,8 @@ def main():
         output_dir="./output",
         logging_dir="./logs/wandb/",
         num_train_epochs=1,             # Total number of training epochs
-        per_device_train_batch_size=16,  # Batch size per device during training
-        per_device_eval_batch_size=16,   # Batch size for evaluation TODO: why it says this   File "/home/alisavin/AgenticADMET/train.py", line 534, in <module>
+        per_device_train_batch_size=32,  # Batch size per device during training
+        per_device_eval_batch_size=32,   # Batch size for evaluation TODO: why it says this   File "/home/alisavin/AgenticADMET/train.py", line 534, in <module>
 #     main()
 #   File "/home/alisavin/AgenticADMET/train.py", line 519, in main
 #     grpo_trainer = GRPOTrainer2(
