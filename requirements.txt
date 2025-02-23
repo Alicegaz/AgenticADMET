@@ -32,7 +32,6 @@ einops==0.8.1
 executing==2.2.0
 fastapi==0.115.8
 filelock==3.17.0
-# flash-attn==2.7.4.post1
 frozenlist==1.5.0
 fsspec==2024.12.0
 gguf==0.10.0
@@ -179,3 +178,4 @@ xgrammar==0.1.13
 xxhash==3.5.0
 yarl==1.18.3
 zipp==3.21.0
+flash-attn==2.7.4.post1
