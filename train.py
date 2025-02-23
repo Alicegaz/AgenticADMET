@@ -45,7 +45,9 @@ def get_tokenizer(
         model_args.model_name_or_path,
         revision=model_args.model_revision,
         trust_remote_code=False, # model_args.trust_remote_code
+        padding_side="left" # TODO: recepie used right, had error thats why changed, check if it does not affect decodning and masking
     )
+
     print("tokenizer loaded")
 
     if training_args.chat_template is not None:
