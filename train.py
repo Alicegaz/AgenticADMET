@@ -456,7 +456,23 @@ def main():
         logging_dir="./logs/wandb/",
         num_train_epochs=1,             # Total number of training epochs
         per_device_train_batch_size=16,  # Batch size per device during training
-        per_device_eval_batch_size=16,   # Batch size for evaluation 
+        per_device_eval_batch_size=16,   # Batch size for evaluation TODO: why it says this   File "/home/alisavin/AgenticADMET/train.py", line 534, in <module>
+#     main()
+#   File "/home/alisavin/AgenticADMET/train.py", line 519, in main
+#     grpo_trainer = GRPOTrainer2(
+#                    ^^^^^^^^^^^^^
+#   File "/home/alisavin/AgenticADMET/openr1/lib/python3.11/site-packages/trl/trainer/grpo_trainer.py", line 346, in __init__
+#     raise ValueError(
+# ValueError: The global train batch size (1 x 8) must be evenly divisible by the number of generations per prompt (16). Given the current train batch size, the valid values for the number of generations are: [2, 4, 8].
+# Traceback (most recent call last):
+#   File "/home/alisavin/AgenticADMET/train.py", line 534, in <module>
+#     main()
+#   File "/home/alisavin/AgenticADMET/train.py", line 519, in main
+#     grpo_trainer = GRPOTrainer2(
+#                    ^^^^^^^^^^^^^
+#   File "/home/alisavin/AgenticADMET/openr1/lib/python3.11/site-packages/trl/trainer/grpo_trainer.py", line 346, in __init__
+#     raise ValueError(
+# ValueError: The global train batch size (1 x 8) must be evenly divisible by the number of generations per prompt (16). Given the current train batch size, the valid values for the number of generations are: [2, 4, 8].
         gradient_accumulation_steps=2,  # Accumulate gradients to simulate larger batch size
         learning_rate=1e-6,            # Initial learning rate for AdamW optimizer
         warmup_ratio=0.1,              # Linear warmup over warmup_ratio fraction of training steps
@@ -506,7 +522,7 @@ def main():
         # We are passing the instantiated 'model' object, so GRPOTrainer doesn't need model_init_kwargs
         },
         num_generations=16, #TODO: 16
-        use_vllm=True, #TODO: use True
+        use_vllm=False, #TODO: use True
         max_prompt_length=800, #TODO: 800+
         max_completion_length=1024, #1024, #TODO: 1024+ (better 2048/4048 and more)
         temperature=0.7,
