@@ -54,6 +54,8 @@ def get_tokenizer(
         tokenizer.chat_template = training_args.chat_template
     elif auto_set_chat_template and tokenizer.get_chat_template() is None:
         tokenizer.chat_template = DEFAULT_CHAT_TEMPLATE
+    
+    tokenizer.padding_side="left"
     print("chat template")
     # if processing_class is None:
     #     processing_class = AutoTokenizer.from_pretrained(model.config._name_or_path, padding_side="left")
