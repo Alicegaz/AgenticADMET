@@ -444,7 +444,7 @@ def main():
     tokenizer = get_tokenizer(model_args_i, training_args_i)
     model_args = ModelConfig(model_name_or_path=MODEL_NAME)
     
-    model = get_model(MODEL_NAME, attn_implementation=None) #TODO: change to "flash_attention_2"
+    model = get_model(MODEL_NAME, attn_implementation="flash_attention_2") #TODO: change to "flash_attention_2"
     dataset = get_dataset()
 
     script_args = GRPOScriptArguments()
@@ -489,7 +489,7 @@ def main():
         # # log_level="info",
         lr_scheduler_type="cosine_with_min_lr",
         lr_scheduler_kwargs={"min_lr_rate": 0.1},
-        max_steps=5, #-1, #TODO: change to -1
+        max_steps=-1, #TODO: change to -1
         # - 1.0
         # - 1.0
         # push_to_hub=False,             # Whether to push the final model to Hugging Face Hub
@@ -505,10 +505,10 @@ def main():
         # REMOVED model_init_kwargs here 
         # We are passing the instantiated 'model' object, so GRPOTrainer doesn't need model_init_kwargs
         },
-        num_generations=2, #TODO: 16
-        use_vllm=False, #TODO: use True
+        num_generations=16, #TODO: 16
+        use_vllm=True, #TODO: use True
         max_prompt_length=800, #TODO: 800+
-        max_completion_length=512, #1024, #TODO: 1024+ (better 2048/4048 and more)
+        max_completion_length=1024, #1024, #TODO: 1024+ (better 2048/4048 and more)
         temperature=0.7,
         reward_weights=[1.0, 1.0, 0.5, 0.5]
         )
