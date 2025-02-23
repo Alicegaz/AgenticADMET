@@ -1,2 +1,0 @@
--r requirements-pre.txt
-flash-attn==2.7.4.post1
