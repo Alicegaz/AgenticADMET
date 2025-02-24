@@ -491,9 +491,6 @@ def main():
         gradient_checkpointing_kwargs={"use_reentrant": False}, # TODO: use
         # ---------
         # # TODO
-        use_vllm=True,
-        vllm_device="auto",
-        vllm_gpu_memory_utilization=0.5, # 0.7
         # # log_completions=True,
         # # log_level="info",
         lr_scheduler_type="cosine_with_min_lr",
@@ -515,7 +512,9 @@ def main():
         # We are passing the instantiated 'model' object, so GRPOTrainer doesn't need model_init_kwargs
         },
         num_generations=4, #TODO: 16
-        use_vllm=False, #TODO: use True
+        use_vllm=True, #TODO: use True
+        vllm_device="auto",
+        vllm_gpu_memory_utilization=0.5, # 0.7
         max_prompt_length=800, #TODO: 800+
         max_completion_length=512, #1024, #TODO: 1024+ (better 2048/4048 and more)
         temperature=0.7,
