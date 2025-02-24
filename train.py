@@ -516,7 +516,7 @@ def main():
         vllm_device="auto",
         vllm_gpu_memory_utilization=0.5, # 0.7
         max_prompt_length=800, #TODO: 800+
-        max_completion_length=512, #1024, #TODO: 1024+ (better 2048/4048 and more)
+        max_completion_length=1024, #TODO: 1024+ (better 2048/4048 and more)
         temperature=0.7,
         reward_weights=[1.0, 1.0, 0.5, 0.5]
         )
