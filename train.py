@@ -447,8 +447,8 @@ def main():
         output_dir="./output",
         logging_dir="./logs/wandb/",
         num_train_epochs=1,             # Total number of training epochs
-        per_device_train_batch_size=16,  # Batch size per device during training
-        per_device_eval_batch_size=16,   # Batch size for evaluation TODO: why it says this   File "/home/alisavin/AgenticADMET/train.py", line 534, in <module>
+        per_device_train_batch_size=12,  # Batch size per device during training
+        per_device_eval_batch_size=12,   # Batch size for evaluation TODO: why it says this   File "/home/alisavin/AgenticADMET/train.py", line 534, in <module>
 #     main()
 #   File "/home/alisavin/AgenticADMET/train.py", line 519, in main
 #     grpo_trainer = GRPOTrainer2(
@@ -510,7 +510,7 @@ def main():
         # REMOVED model_init_kwargs here 
         # We are passing the instantiated 'model' object, so GRPOTrainer doesn't need model_init_kwargs
         },
-        num_generations=16, #TODO: 16
+        num_generations=12, #TODO: 16
         use_vllm=True, #TODO: use True
         vllm_device="cuda:0",
         vllm_gpu_memory_utilization=0.5, # 0.7
