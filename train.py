@@ -432,9 +432,10 @@ def main():
     tokenizer = get_tokenizer(model_args_i, training_args_i)
     model_args = ModelConfig(model_name_or_path=MODEL_NAME)
     
-    #TODO: gpu utilization with falsh attention is 24, without 96
+    #TODO: gpu utilization with falsh attention is 24, without 96 (now no difference)
     #TODO: with flash attention throuw warning that flash attention is attemted to be used in a model on cpu
-    model = get_model(MODEL_NAME, attn_implementation="flash_attention_2") #TODO: change to "flash_attention_2"
+    # You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with model.to('cuda')
+    model = get_model(MODEL_NAME, attn_implementation=None) #TODO: change to "flash_attention_2"
     dataset = get_dataset()
 
     script_args = GRPOScriptArguments()
@@ -537,10 +538,14 @@ def main():
 
     #TODO: check if there is memory consumption bug
     #https://github.com/huggingface/trl/issues/2719
-    # TODO: check if we can use deepspeed useing the accelerate scrip
+    # TODO: check if we can use deepspeed useing the accelerate script
 
     #TODO: no padding with whash attention, packing whould be True
     #https://github.com/huggingface/transformers/issues/28130
+
+    #TODO: model supports multiple tasks: {'embed', 'reward', 'generate', 'score', 'classify'}. Defaulting to 'generate'.
+    # WARNING 02-24 05:09:24 arg_utils.py:1145] The model has a long context length (131072). This may cause OOM errors during the initial memory profiling phase, or result in low performance due to small KV cache space. Consider setting --max-model-len to a smaller value.
+    # INFO 02-24 05:09:24 llm_engine.py:234] 
 
 if __name__ == "__main__":
     main()
