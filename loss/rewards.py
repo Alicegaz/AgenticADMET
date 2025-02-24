@@ -62,7 +62,6 @@ def accuracy_reward(completions, ground_truth=None, log_normalize=False, **kwarg
                 # Evaluate symbolic expressions as floats
                 # gold_val = float(gold_parsed.evalf())
                 # answer_val = float(answer_parsed.evalf())
-                print(answer_parsed, type(answer_parsed))
                 answer_val = float(answer_parsed[0])
                 if log_normalize and property != "LogD":
                     answer_val = np.log(answer_val+1)
