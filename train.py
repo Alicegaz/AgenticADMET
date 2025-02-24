@@ -405,8 +405,8 @@ class GRPOTrainer2(GRPOTrainer):
 
 def main():
     # MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
-    MODEL_NAME = "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
-    # MODEL_NAME = "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B" #DeepSeek-R1-Distill-Qwen-1.5B-GRPO
+    # MODEL_NAME = "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+    MODEL_NAME = "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B" #DeepSeek-R1-Distill-Qwen-1.5B-GRPO
     # MODEL_NAME = "nickypro/tinyllama-15M"
     OUTPUT_DIR = "data/Qwen-GRPO-training" # For saving our trained model
 
