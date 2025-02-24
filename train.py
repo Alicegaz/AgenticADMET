@@ -436,6 +436,7 @@ def main():
     model_args = ModelConfig(model_name_or_path=MODEL_NAME)
     
     #TODO: gpu utilization with falsh attention is 24, without 96
+    #TODO: with flash attention throuw warning that flash attention is attemted to be used in a model on cpu
     model = get_model(MODEL_NAME, attn_implementation=None) #TODO: change to "flash_attention_2"
     dataset = get_dataset()
 

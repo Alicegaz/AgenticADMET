@@ -78,7 +78,8 @@ def accuracy_reward(completions, ground_truth=None, log_normalize=False, **kwarg
                 # if reward == 0: #gives vero for not equal
                 #     print("answer parsed 0", answer_parsed)
                 reward = 0
-                print(e, answer_parsed)
+                if len(answer_parsed) > 0:
+                    print(e, answer_parsed)
         else:
             # If ground truth cannot be parsed, assign neutral reward (0.5)
             reward = 0.5
