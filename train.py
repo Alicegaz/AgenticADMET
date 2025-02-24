@@ -8,8 +8,7 @@ import torch
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
-    TrainingArguments,
-    Trainer
+    TrainingArguments
 )
 
 # Import libraries from TRL (Transformers Reinforcement Learning)
@@ -17,12 +16,10 @@ from trl import (
     GRPOConfig, 
     GRPOTrainer
 )
-from trl.trainer.grpo_trainer import maybe_apply_chat_template, pad, gather_object, broadcast_object_list, is_conversational, apply_chat_template, unwrap_model_for_generation, gather, Union, Any, nn
 
 #source openr1/bin/activate
 from dataset import load_polaris_dataset, validate_dataset
 from loss import get_reward_functions
-import logging
 from trl.trainer.utils import selective_log_softmax 
 from munch import Munch
 import wandb
