@@ -446,8 +446,8 @@ def main():
         output_dir="./output",
         logging_dir="./logs/wandb/",
         num_train_epochs=1,             # Total number of training epochs
-        per_device_train_batch_size=32,  # Batch size per device during training
-        per_device_eval_batch_size=32,   # Batch size for evaluation TODO: why it says this   File "/home/alisavin/AgenticADMET/train.py", line 534, in <module>
+        per_device_train_batch_size=48,  # Batch size per device during training
+        per_device_eval_batch_size=48,   # Batch size for evaluation TODO: why it says this   File "/home/alisavin/AgenticADMET/train.py", line 534, in <module>
 #     main()
 #   File "/home/alisavin/AgenticADMET/train.py", line 519, in main
 #     grpo_trainer = GRPOTrainer2(
@@ -476,7 +476,7 @@ def main():
         save_total_limit=0,      # Makes sure no checkpoints are kept
         load_best_model_at_end=False,  # Disables saving the best model
         save_steps=0,            # No saving at specific steps
-        dataloader_num_workers=2,      # Number of subprocesses to use for data loading
+        dataloader_num_workers=8,      # Number of subprocesses to use for data loading
         seed=42,                       # Random seed for reproducibility
         bf16=True,                     # Use mixed precision BFP16 training #TODO: ??????
         push_to_hub=False,             # Whether to push the final model to Hugging Face Hub
