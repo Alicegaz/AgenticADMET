@@ -435,19 +435,20 @@ def main():
     tokenizer = get_tokenizer(model_args_i, training_args_i)
     model_args = ModelConfig(model_name_or_path=MODEL_NAME)
     
-    model = get_model(MODEL_NAME, attn_implementation="flash_attention_2") #TODO: change to "flash_attention_2"
+    #TODO: gpu utilization with falsh attention is 24, without 96
+    model = get_model(MODEL_NAME, attn_implementation=None) #TODO: change to "flash_attention_2"
     dataset = get_dataset()
 
     script_args = GRPOScriptArguments()
-    reward_functions = get_reward_functions(script_args)
+    reward_functions = get_reward_functions(script_args) #TODO: check trl they had someshere gpro example and used different rewards including lenght reward
     print(reward_functions)
 
     training_args = TrainingArguments(
         output_dir="./output",
         logging_dir="./logs/wandb/",
         num_train_epochs=1,             # Total number of training epochs
-        per_device_train_batch_size=16,  # Batch size per device during training
-        per_device_eval_batch_size=16,   # Batch size for evaluation TODO: why it says this   File "/home/alisavin/AgenticADMET/train.py", line 534, in <module>
+        per_device_train_batch_size=32,  # Batch size per device during training
+        per_device_eval_batch_size=32,   # Batch size for evaluation TODO: why it says this   File "/home/alisavin/AgenticADMET/train.py", line 534, in <module>
 #     main()
 #   File "/home/alisavin/AgenticADMET/train.py", line 519, in main
 #     grpo_trainer = GRPOTrainer2(
@@ -464,7 +465,7 @@ def main():
 #   File "/home/alisavin/AgenticADMET/openr1/lib/python3.11/site-packages/trl/trainer/grpo_trainer.py", line 346, in __init__
 #     raise ValueError(
 # ValueError: The global train batch size (1 x 8) must be evenly divisible by the number of generations per prompt (16). Given the current train batch size, the valid values for the number of generations are: [2, 4, 8].
-        gradient_accumulation_steps=4,  # Accumulate gradients to simulate larger batch size
+        gradient_accumulation_steps=2,  # Accumulate gradients to simulate larger batch size
         learning_rate=1e-6,            # Initial learning rate for AdamW optimizer
         warmup_ratio=0.1,              # Linear warmup over warmup_ratio fraction of training steps
         weight_decay=0.01,             # Apply weight decay to all layers except bias and LayerNorm weights

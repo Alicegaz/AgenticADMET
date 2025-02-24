@@ -61,21 +61,23 @@ def accuracy_reward(completions, ground_truth=None, log_normalize=False, **kwarg
             try:
                 # Evaluate symbolic expressions as floats
                 # gold_val = float(gold_parsed.evalf())
-                answer_val = float(answer_parsed.evalf())
-                print(answer_parsed)
+                # answer_val = float(answer_parsed.evalf())
+                answer_val = float(answer_parsed[0])
                 if log_normalize and property != "LogD":
                     answer_val = np.log(answer_val+1)
                     gold_val = np.log(gold_val+1)
                 reward = -1*np.mean(np.abs(gold_val - answer_val))
                 reward = np.clip(1-(1/6)*reward, 0, 1)
+                print("parsed correctly", answer_val, gold_val)
             except Exception as e:
                 # If direct numeric eval fails 
                 # (e.g., the expression is more complicated),
                 # we can fallback to 'verify' for symbolic equivalence:
-                reward = float(verify(answer_parsed, gold_val))
-                if reward == 0: #gives vero for not equal
-                    print("answer parsed 0", answer_parsed)
-                    reward = 0
+                # reward = float(verify(answer_parsed, gold_val))
+                # if reward == 0: #gives vero for not equal
+                #     print("answer parsed 0", answer_parsed)
+                reward = 0
+                print(e, answer_parsed[0])
         else:
             # If ground truth cannot be parsed, assign neutral reward (0.5)
             reward = 0.5
