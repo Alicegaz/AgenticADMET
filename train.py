@@ -405,8 +405,8 @@ class GRPOTrainer2(GRPOTrainer):
 
 def main():
     # MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
-    # MODEL_NAME = "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
-    MODEL_NAME = "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B" #DeepSeek-R1-Distill-Qwen-1.5B-GRPO
+    MODEL_NAME = "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+    # MODEL_NAME = "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B" #DeepSeek-R1-Distill-Qwen-1.5B-GRPO
     # MODEL_NAME = "nickypro/tinyllama-15M"
     OUTPUT_DIR = "data/Qwen-GRPO-training" # For saving our trained model
 
@@ -448,8 +448,8 @@ def main():
         output_dir="./output",
         logging_dir="./logs/wandb/",
         num_train_epochs=1,             # Total number of training epochs
-        per_device_train_batch_size=16,  # Batch size per device during training
-        per_device_eval_batch_size=16,   # Batch size for evaluation TODO: why it says this   File "/home/alisavin/AgenticADMET/train.py", line 534, in <module>
+        per_device_train_batch_size=4,  # Batch size per device during training
+        per_device_eval_batch_size=4,   # Batch size for evaluation TODO: why it says this   File "/home/alisavin/AgenticADMET/train.py", line 534, in <module>
 #     main()
 #   File "/home/alisavin/AgenticADMET/train.py", line 519, in main
 #     grpo_trainer = GRPOTrainer2(
@@ -478,7 +478,7 @@ def main():
         save_total_limit=0,      # Makes sure no checkpoints are kept
         load_best_model_at_end=False,  # Disables saving the best model
         save_steps=0,            # No saving at specific steps
-        dataloader_num_workers=8,      # Number of subprocesses to use for data loading
+        dataloader_num_workers=4,      # Number of subprocesses to use for data loading
         seed=42,                       # Random seed for reproducibility
         bf16=True,                     # Use mixed precision BFP16 training #TODO: ??????
         push_to_hub=False,             # Whether to push the final model to Hugging Face Hub
@@ -491,9 +491,9 @@ def main():
         gradient_checkpointing_kwargs={"use_reentrant": False}, # TODO: use
         # ---------
         # # TODO
-        # # use_vllm=True,
-        # # vllm_device="auto",
-        # # vllm_gpu_memory_utilization=0.7
+        use_vllm=True,
+        vllm_device="auto",
+        vllm_gpu_memory_utilization=0.5, # 0.7
         # # log_completions=True,
         # # log_level="info",
         lr_scheduler_type="cosine_with_min_lr",
@@ -514,10 +514,10 @@ def main():
         # REMOVED model_init_kwargs here 
         # We are passing the instantiated 'model' object, so GRPOTrainer doesn't need model_init_kwargs
         },
-        num_generations=16, #TODO: 16
+        num_generations=4, #TODO: 16
         use_vllm=False, #TODO: use True
         max_prompt_length=800, #TODO: 800+
-        max_completion_length=1024, #1024, #TODO: 1024+ (better 2048/4048 and more)
+        max_completion_length=512, #1024, #TODO: 1024+ (better 2048/4048 and more)
         temperature=0.7,
         reward_weights=[1.0, 1.0, 0.5, 0.5]
         )
