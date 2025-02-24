@@ -510,13 +510,13 @@ def main():
         },
         num_generations=8, #TODO: 16
         use_vllm=True, #TODO: use True
-        vllm_device="auto",
+        vllm_device="cuda:0",
         vllm_gpu_memory_utilization=0.5, # 0.7
         max_prompt_length=800, #TODO: 800+
         max_completion_length=1024, #TODO: 1024+ (better 2048/4048 and more)
         temperature=0.7,
-        reward_weights=[1.0, 1.0, 0.5, 0.5],
-        packing=True
+        reward_weights=[1.0, 1.0, 0.5, 0.5]
+        # packing=True
         )
 
     # for l in dataset['train']:
@@ -535,6 +535,12 @@ def main():
     # Start the GRPO Training Loop
     train_result = grpo_trainer.train()
 
+    #TODO: check if there is memory consumption bug
+    #https://github.com/huggingface/trl/issues/2719
+    # TODO: check if we can use deepspeed useing the accelerate scrip
+
+    #TODO: no padding with whash attention, packing whould be True
+    #https://github.com/huggingface/transformers/issues/28130
 
 if __name__ == "__main__":
     main()
