@@ -51,13 +51,14 @@ def split_dict(data, train_ratio=0.7, test_ratio=0.15, valid_ratio=0.15, seed=No
     
     return train_data, test_data, valid_data
 
-def flatten_properties(data):
+def flatten_properties(data, params):
     # dct = {"MLM": "MLM in uL/min/mg (Mouse Liver Microsomal stability, a stability assay that tests how quickly a molecule gets broken down by mouse liver microsomes, a useful assay that can be used as an estimate on how long a molecule will reside in the mouse body before it gets cleared.)",
     #     "HLM": "HLM in uL/min/mg (Human Liver Microsomal stability, a stability assay that tests how quickly a molecule gets broken down by human liver microsomes, a useful assay that can be used as an estimate on how long a molecule will reside in the human body before it gets cleared.)", 
     #     "KSOL": "KSOL in uM (Solubility, solubility is essential for drug molecules: this heavily affects the pharmacokinetic and dynamics ('PKPD') of the molecule in the human body.)",
     #     "LogD": "LogD (Lipophilicity, like solubility - but then in fatty tissue - LogD is a measure of a molecule's lipophilicity, or how well it dissolves in fat, LogD is calculated by comparing a molecule's solubility in octanol, a fat-like substance, to its solubility in water.)",
     #     "MDR1-MDCKII": "MDR1-MDCKII in 10^-6 cm/s (Cell permeation, MDCKII-MDR1 is a cell line that's used to model cell permeation i.e. how well drug compounds will permeate cell layers. For coronaviruses this is a critical endpoint because there is increasing evidence that afflictions such as long-covid are caused by (remnant) virus particles in the brain, and blood-brain-barrier (BBB) permeation is critical for drug candidates to reach the brain.)"
     #     }
+    params = set(params)
     dct = {"MLM": "MLM in uL/min/mg (Mouse Liver Microsomal stability)",
         "HLM": "HLM in uL/min/mg (Human Liver Microsomal stability)", 
         "KSOL": "KSOL in uM (Solubility)",
@@ -67,18 +68,18 @@ def flatten_properties(data):
     polaris_dataset_hold = []
     for k, v in data.items():
         for v_name, v_i in v.items():
-            if not np.isnan(v_i):
-                polaris_dataset_hold.append({"solution": v_i, "problem": f"What is the {dct[v_name]} of the small molecule given it's SMILES '{k}'?", "property": v_name})
+            if not np.isnan(v_i) and v_name in params:
+                polaris_dataset_hold.append({"solution": v_i, "problem": f"The numerical value of {dct[v_name]} of the small molecule given it's SMILES '{k}' is", "property": v_name})
     return polaris_dataset_hold
 
-def load_polaris_dataset():
+def load_polaris_dataset(params=["MLM", "HLM", "KSOL", "LogD", "MDR1-MDCKII"]):
     """Load and prepare the mathematics dataset."""
     with open("polaris-antiviral-admet-2025.json", "r") as f:
         polaris_dataset = json.load(f)
 
     train, test, valid = split_dict(polaris_dataset, seed=42)
     
-    train, test, valid = flatten_properties(train), flatten_properties(test), flatten_properties(valid)
+    train, test, valid = flatten_properties(train, params=params), flatten_properties(test, params=params), flatten_properties(valid, params=params)
 
     # Convert splits to Datasets
     train_dataset = Dataset.from_list(train)

@@ -20,6 +20,9 @@ def accuracy_reward(completions, ground_truth=None, log_normalize=False, **kwarg
     #TODO: does the current range of -inf;0 
     # print(ground_truth, kwargs.keys())
 
+    # Possible values
+    # Cannot convert expression to float [3.5*to*4.5, '3.5\\text{ to }4.5']
+
     # Extract responses
     contents = [completion[0]["content"] for completion in completions]
     rewards = []

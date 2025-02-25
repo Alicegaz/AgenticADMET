@@ -2,3 +2,5 @@ openr1
 data
 wandb
 **/__pycache__
+outputs
+output
