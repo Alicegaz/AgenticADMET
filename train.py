@@ -285,7 +285,7 @@ def main():
     training_args = TrainingArguments(
         output_dir=f"{os.environ.get('AIP_MODEL_DIR', './outputs/')}{now:%Y-%m-%d}/{now:%H-%M-%S}", #"./output",
         logging_dir="./logs/wandb/",
-        num_train_epochs=10,             # Total number of training epochs
+        num_train_epochs=5,             # Total number of training epochs
         per_device_train_batch_size=16,  # Batch size per device during training
         per_device_eval_batch_size=32,   # Batch size for evaluation TODO: why it says this   File "/home/alisavin/AgenticADMET/train.py", line 534, in <module>
 #     main()
@@ -452,3 +452,4 @@ if __name__ == "__main__":
 
 #TODO: check how "equations is deprecated, as it handled by the parser now" is thrown
 #TODO: current prompt does not produce answer, but consistently puts final result in the last sentence inside \\boxed{}
+#TODO: track generations at training 
