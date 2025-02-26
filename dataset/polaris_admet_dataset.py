@@ -2,6 +2,7 @@ import numpy as np
 import random
 from datasets import Dataset, DatasetDict
 import json
+from pathlib import Path
 
 # DeepSeek system prompt for GRPO based training
 # SYSTEM_PROMPT = (
@@ -11,7 +12,7 @@ import json
 #     "<think> reasoning process here </think><answer> answer here </answer>"
 # )
 
-SYSTEM_PROMPT = "You are a helpful AI Assistant that provides well-reasoned and detailed responses. You first think about the reasoning process as an internal monologue and then provide the user with the answer. Respond in the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>"
+SYSTEM_PROMPT = "You are an experienced Chemist that provides well-reasoned and detailed responses and excells at predicting ADME properties of molecules. You first think about the reasoning process as an internal monologue and then provide the user with the answer. Respond in the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>. Inside <answer>\n...\n</answer>, when you finished thinking and certian that it is the most accurate answer you can give, put the final answer in the following format: \\boxed{RESULT}, where RESULT is just the final number in float or expression that solves the problem."
 
 # Function to structure the training data
 def make_conversation(example):
@@ -69,15 +70,34 @@ def flatten_properties(data, params):
     for k, v in data.items():
         for v_name, v_i in v.items():
             if not np.isnan(v_i) and v_name in params:
-                polaris_dataset_hold.append({"solution": v_i, "problem": f"The numerical value of {dct[v_name]} of the small molecule given it's SMILES '{k}' is", "property": v_name})
+                polaris_dataset_hold.append({"solution": v_i, "problem": f"The numerical value of {dct[v_name]} of the small molecule given it's SMILES '{k}' is", "property": v_name, "smiles": k})
     return polaris_dataset_hold
 
-def load_polaris_dataset(params=["MLM", "HLM", "KSOL", "LogD", "MDR1-MDCKII"]):
+def load_polaris_dataset(params=["MLM", "HLM", "KSOL", "LogD", "MDR1-MDCKII"], rewrite=False):
     """Load and prepare the mathematics dataset."""
     with open("polaris-antiviral-admet-2025.json", "r") as f:
         polaris_dataset = json.load(f)
 
-    train, test, valid = split_dict(polaris_dataset, seed=42)
+    if rewrite or not Path("/home/alisavin/AgenticADMET/dataset/train_split.json").is_file():
+        train, test, valid = split_dict(polaris_dataset, seed=42)
+        with open("/home/alisavin/AgenticADMET/dataset/train_split.json", "w") as f:
+            json.dump(train, f, indent=2)
+        
+        with open("/home/alisavin/AgenticADMET/dataset/validation_split.json", "w") as f:
+            json.dump(valid, f, indent=2)
+        
+        with open("/home/alisavin/AgenticADMET/dataset/test_split.json", "w") as f:
+            json.dump(test, f, indent=2)
+    else:
+        with open("/home/alisavin/AgenticADMET/dataset/train_split.json", "r") as f:
+            train = json.load(f)
+        
+        with open("/home/alisavin/AgenticADMET/dataset/validation_split.json", "r") as f:
+            valid = json.load(f)
+        
+        with open("/home/alisavin/AgenticADMET/dataset/test_split.json", "r") as f:
+            test = json.load(f)
+    
     
     train, test, valid = flatten_properties(train, params=params), flatten_properties(test, params=params), flatten_properties(valid, params=params)
 

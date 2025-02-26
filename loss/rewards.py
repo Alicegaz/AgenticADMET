@@ -29,6 +29,7 @@ def accuracy_reward(completions, ground_truth=None, log_normalize=False, **kwarg
 
     solutions = kwargs.get("solution") # Get solutions from kwargs
     property = kwargs.get("property")
+    # smiles = kwargs.get("smiles")
 
     if solutions is None:
         return [0.5] * len(completions) # Return neutral reward if no solution
@@ -67,11 +68,11 @@ def accuracy_reward(completions, ground_truth=None, log_normalize=False, **kwarg
                 # answer_val = float(answer_parsed.evalf())
                 answer_val = float(answer_parsed[0])
                 if log_normalize and property != "LogD":
-                    answer_val = np.log(answer_val+1)
-                    gold_val = np.log(gold_val+1)
-                reward = -1*np.mean(np.abs(gold_val - answer_val))
+                    answer_val = np.log10(answer_val+1)
+                    gold_val = np.log10(gold_val+1)
+                reward = np.mean(np.abs(gold_val - answer_val))
                 reward = np.clip(1-(1/6)*reward, 0, 1)
-                print("parsed correctly", answer_val, gold_val)
+                # print("parsed correctly", answer_val, gold_val)
             except Exception as e:
                 # If direct numeric eval fails 
                 # (e.g., the expression is more complicated),
@@ -88,6 +89,7 @@ def accuracy_reward(completions, ground_truth=None, log_normalize=False, **kwarg
             print("Warning: Gold solution is None:", gold_val)
 
         rewards.append(reward)
+    # print(completions)
     
     return rewards
 

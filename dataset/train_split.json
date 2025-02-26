@@ -1,0 +1,1843 @@
+{
+  "CC1=CC(C2=NOC(C(F)(F)F)=N2)=CC=C1OCCCC1=NC(C2=CC=CN=C2)=NO1": {
+    "HLM": 16.6,
+    "MDR1-MDCKII": 0.434,
+    "MLM": 33.0,
+    "LogD": NaN,
+    "KSOL": 6.0
+  },
+  "CC1=CC(C2=NOC(C(F)(F)F)=N2)=CC=C1OCCCC1=NC(C2=CC=NC=C2)=NO1": {
+    "HLM": 19.6,
+    "MDR1-MDCKII": 1.01,
+    "MLM": 80.5,
+    "LogD": 4.5,
+    "KSOL": 4.0
+  },
+  "COCCNC(=O)C1=CNC2=NC=NC(N[C@H](C3=CC=C4CCCS(=O)(=O)C4=C3)C(C)C)=C12": {
+    "HLM": 540.0,
+    "MDR1-MDCKII": 1.62,
+    "MLM": 888.0,
+    "LogD": 2.8,
+    "KSOL": 378.0
+  },
+  "CNC(=O)CN1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2CNC2=CC=CC=C2)C2=CC(Cl)=CC=C2C1=O": {
+    "HLM": 378.0,
+    "MDR1-MDCKII": 1.08,
+    "MLM": 495.0,
+    "LogD": 3.0,
+    "KSOL": 139.0
+  },
+  "CC(C)[C@H](NC1=NC=NC2=C1C=C(C1=CN(CC(=O)N(C)C)N=C1)N2)C1=CC=C2OCCOC2=C1": {
+    "HLM": 142.0,
+    "MDR1-MDCKII": 1.14,
+    "MLM": 59.0,
+    "LogD": 2.3,
+    "KSOL": 210.0
+  },
+  "O=C(NC1=CC=CC(B(O)O)=C1)[C@H]1CCN(CC2=CC=CC=C2)C1": {
+    "HLM": 7.0,
+    "MDR1-MDCKII": 13.5,
+    "MLM": 26.0,
+    "LogD": 1.9,
+    "KSOL": NaN
+  },
+  "CNC(=O)CN1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2CC#N)C2=CC(Cl)=CC=C2C1=O": {
+    "HLM": 37.0,
+    "MDR1-MDCKII": 0.317,
+    "MLM": 46.0,
+    "LogD": 1.1,
+    "KSOL": 349.0
+  },
+  "C1=CC=C(C2=NC3=NC=NN3C(SC3=NN=C(N4CCOCC4)S3)=C2)C=C1": {
+    "HLM": 290.0,
+    "MDR1-MDCKII": 0.14,
+    "MLM": 624.0,
+    "LogD": 2.1,
+    "KSOL": 4.0
+  },
+  "CNC(=O)[C@H](NC1=CC(Cl)=CC(NC(=O)OCC2=CC=CC=C2)=C1)C1=CC=CC(C2=NNN=N2)=C1": {
+    "HLM": 21.3,
+    "MDR1-MDCKII": 1.39,
+    "MLM": NaN,
+    "LogD": 2.2,
+    "KSOL": 333.0
+  },
+  "CC1=CC=CC=C1OCC(=O)NC1=CN=CC(C2=CN=C3NC=CC3=C2)=C1": {
+    "HLM": 113.0,
+    "MDR1-MDCKII": 2.06,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 6.0
+  },
+  "CNCC1=CC(C2=CC3=C(N[C@H](C4=CC=C5CCNS(=O)(=O)C5=C4)C(C)C)N=CN=C3N2)=CO1": {
+    "HLM": 46.0,
+    "MDR1-MDCKII": 1.2,
+    "MLM": 42.0,
+    "LogD": 1.9,
+    "KSOL": 372.0
+  },
+  "CC(C)[C@H](NC1=NC=NC(N)=C1Cl)C1=CC=C2CCCS(=O)(=O)C2=C1": {
+    "HLM": 79.0,
+    "MDR1-MDCKII": 10.1,
+    "MLM": 204.0,
+    "LogD": 2.4,
+    "KSOL": NaN
+  },
+  "CCN1C(C)=NN=C1SC1=CC(C)=NC2=NC=NN12": {
+    "HLM": 16.5,
+    "MDR1-MDCKII": 0.401,
+    "MLM": 10.0,
+    "LogD": -0.5,
+    "KSOL": 348.0
+  },
+  "CN1N=CC2=C(C(=O)NC3=CC=C4CNCC4=C3)C=C(Br)C=C21": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 4.66,
+    "MLM": NaN,
+    "LogD": 1.0,
+    "KSOL": 392.0
+  },
+  "NCC1=CC=CC(NC(=O)C2=CC(Cl)=CC(NC(=O)OCC3=CC=CC=C3)=C2)=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 2.11,
+    "MLM": NaN,
+    "LogD": 2.7,
+    "KSOL": 89.0
+  },
+  "CC[C@H](CC1=NN=NN1)C1=CC=C(NC(=O)C2=CC(Cl)=CC(NC(=O)OCC3=CC=CC=C3)=C2)C=C1": {
+    "HLM": 24.9,
+    "MDR1-MDCKII": 2.79,
+    "MLM": NaN,
+    "LogD": 4.1,
+    "KSOL": 60.0
+  },
+  "O=C(CC1=CNN=C1)NC1=CNC(=O)C2=CC=CC=C12": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 1.05,
+    "MLM": NaN,
+    "LogD": 0.1,
+    "KSOL": 383.0
+  },
+  "CNC(=O)CN1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2CNC2=CC=C(Cl)N=N2)C2=CC(Cl)=CC=C2C1=O": {
+    "HLM": 70.0,
+    "MDR1-MDCKII": 0.5,
+    "MLM": 75.0,
+    "LogD": 2.1,
+    "KSOL": 390.0
+  },
+  "O=C(O)C[C@H](NC(=O)C1=NC=NC2=C1C=CN2)C1=CC=C(Br)C=C1": {
+    "HLM": 6.0,
+    "MDR1-MDCKII": 2.6,
+    "MLM": 1.0,
+    "LogD": 0.22,
+    "KSOL": NaN
+  },
+  "C=C[C@H]1CN2CC[C@H]1C[C@@H]2[C@@H](O)C1=CC=NC2=CC=C(OC)C=C12": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 13.9,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": NaN
+  },
+  "CC(C)[C@H](NC1=NC=NC2=C1C=C(C1=CN(CC(N)=O)N=C1)N2)C1=CC=C2CCCS(=O)(=O)C2=C1": {
+    "HLM": 116.0,
+    "MDR1-MDCKII": 0.32,
+    "MLM": 61.0,
+    "LogD": 1.9,
+    "KSOL": 341.0
+  },
+  "CN1C(SC2=CC(C3=NOC=C3)=NC3=NC=NN23)=NN=C1C1=CC=C(Cl)C=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.392,
+    "MLM": NaN,
+    "LogD": 2.0,
+    "KSOL": 8.0
+  },
+  "CNC(=O)CN1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2CNC2=C(C)N=CS2)C2=CC(Cl)=CC=C2C1=O": {
+    "HLM": 17.0,
+    "MDR1-MDCKII": 0.6,
+    "MLM": 33.0,
+    "LogD": 2.1,
+    "KSOL": 383.0
+  },
+  "O=C(NC1=CC(Cl)=CC(C(=O)NC2=NNC3=C2CNC3)=C1)OCC1=CC=CC=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 1.44,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 26.0
+  },
+  "CNC(=O)CN1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2CNC2=CN(C)N=C2)C2=CC(Cl)=CC=C2C1=O": {
+    "HLM": 66.0,
+    "MDR1-MDCKII": 0.813,
+    "MLM": 90.0,
+    "LogD": 1.2,
+    "KSOL": 376.0
+  },
+  "CN1C=CC(CN2C[C@]3(CCN(C4=CN=CC5=CC=CC=C45)C3=O)C3=CC(Cl)=CC=C3C2=O)=N1": {
+    "HLM": 241.0,
+    "MDR1-MDCKII": 10.2,
+    "MLM": 258.0,
+    "LogD": 2.4,
+    "KSOL": 389.0
+  },
+  "C=CC(=O)N1CCCC2=CC=C(N(CC3=CC=CC(C(F)(F)F)=C3)C(=O)CC3=CN=CC4=CC=CC=C34)C=C21": {
+    "HLM": 614.0,
+    "MDR1-MDCKII": NaN,
+    "MLM": 2150.0,
+    "LogD": NaN,
+    "KSOL": NaN
+  },
+  "O=C(O)C1=CC(Cl)=C(F)C=C1S(=O)(=O)NC1=CC=C(OC2=CC=CC=C2Cl)C=C1": {
+    "HLM": 67.4,
+    "MDR1-MDCKII": 4.29,
+    "MLM": NaN,
+    "LogD": 3.3,
+    "KSOL": 396.0
+  },
+  "O=C(NC1=CC=C2CNCC2=C1)C1=CC(F)=CC2=C1CCC2": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 10.7,
+    "MLM": 37.4,
+    "LogD": 1.2,
+    "KSOL": 187.0
+  },
+  "O=C(NCC1=CC=CC=N1)NC1=CNC(=O)C2=CC(Cl)=CC=C12": {
+    "HLM": 11.4,
+    "MDR1-MDCKII": 1.53,
+    "MLM": 24.7,
+    "LogD": 1.7,
+    "KSOL": 127.0
+  },
+  "CNC(=O)[C@H](NC1=CC=C(C2=NN=NN2)C=C1)C1=CC(Cl)=CC(C2CC2)=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 1.6,
+    "MLM": NaN,
+    "LogD": 1.1,
+    "KSOL": NaN
+  },
+  "CC(C)(C)[C@H](NC1=NC=NC2=C1C=C(C1=CN(CC(N)=O)N=C1)N2)C1=CC=C2OCCOC2=N1": {
+    "HLM": 36.0,
+    "MDR1-MDCKII": 0.822,
+    "MLM": 31.0,
+    "LogD": 2.7,
+    "KSOL": 48.0
+  },
+  "C=CC[C@H](NC1=CC=C(C2=NNN=N2)C=C1)C1=CC(Cl)=CC(NC(=O)OCC2=CC=CC=C2)=C1": {
+    "HLM": 10.1,
+    "MDR1-MDCKII": 2.6,
+    "MLM": NaN,
+    "LogD": 3.9,
+    "KSOL": NaN
+  },
+  "CC(C)[C@H](NC1=NC=NC2=C1C=C(C1=CN(CC(=O)N(C)C)N=C1)N2)C1=CC=C2CCCS(=O)(=O)C2=C1": {
+    "HLM": 106.0,
+    "MDR1-MDCKII": 0.67,
+    "MLM": 68.0,
+    "LogD": 2.1,
+    "KSOL": 38.0
+  },
+  "C[C@H]1CN(C2=CN=CC3=CC=CC=C23)C(=O)[C@@]12CN(CC1=COC=N1)C(=O)C1=CC=C(F)C=C12": {
+    "HLM": 85.0,
+    "MDR1-MDCKII": 11.9,
+    "MLM": 278.0,
+    "LogD": 1.9,
+    "KSOL": NaN
+  },
+  "CN(C)C(=O)C1=NOC(CCCN2C=CC3=CC(C4=NOC(C(F)(F)F)=N4)=CC=C32)=C1": {
+    "HLM": 28.9,
+    "MDR1-MDCKII": 1.02,
+    "MLM": 26.4,
+    "LogD": NaN,
+    "KSOL": 8.0
+  },
+  "COC1=CC=C(C2=NN=C(SC3=CC(C4=CC=CC=C4)=NC4=NC=NN34)N2C)C=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.657,
+    "MLM": NaN,
+    "LogD": 2.6,
+    "KSOL": 11.0
+  },
+  "CC1=NOC(CCCOC2=C(C)C=C(C3=NOC(C(F)(F)F)=N3)C=C2C)=C1": {
+    "HLM": 11.6,
+    "MDR1-MDCKII": 1.42,
+    "MLM": 21.5,
+    "LogD": 4.2,
+    "KSOL": 18.0
+  },
+  "CC(C)C1=NC([C@H]2CCCN(C(=O)CC3=CN=CC4=CC=CC=C34)C2)=NO1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 22.7,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 380.0
+  },
+  "CN1N=NC(CN2C[C@]3(CCN(C4=CN=CC5=CC=CC=C45)C3=O)C3=CC(Cl)=CC=C3C2=O)=N1": {
+    "HLM": 77.0,
+    "MDR1-MDCKII": 10.5,
+    "MLM": 227.0,
+    "LogD": 1.9,
+    "KSOL": NaN
+  },
+  "ClC1=CC=C(C2=NN=C(SC3=CC(C4=CC=CC=C4)=NC4=NC=NN34)O2)C=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.00871,
+    "MLM": NaN,
+    "LogD": 4.2,
+    "KSOL": 2.0
+  },
+  "COC1=CC=C2NC(CCCOC3=CC=C(C4=NOC(C(F)(F)F)=N4)C=C3C)=NC2=N1": {
+    "HLM": 30.5,
+    "MDR1-MDCKII": 1.79,
+    "MLM": 26.1,
+    "LogD": NaN,
+    "KSOL": 3.0
+  },
+  "O=C(NC1=CC(Cl)=CC(C(=O)NC2=CC=CC(C3=NN=NN3)=C2)=C1)OCC1=CC=CC=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 5.06,
+    "MLM": NaN,
+    "LogD": 3.7,
+    "KSOL": 65.0
+  },
+  "CCN1N=CC=C1CN1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2C)C2=CC(F)=CC=C2C1=O": {
+    "HLM": 256.0,
+    "MDR1-MDCKII": 16.5,
+    "MLM": 441.0,
+    "LogD": 2.3,
+    "KSOL": 378.0
+  },
+  "CC1=NN=C(CCCOC2=CC=C(C3=NOC(C(F)(F)F)=N3)C=C2C)N1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 13.8,
+    "MLM": 15.4,
+    "LogD": 4.1,
+    "KSOL": 18.0
+  },
+  "O=C(O)CN1N=CC2=CC(C3=CC(Cl)=CC(NC(=O)OCC4=CC=CC=C4)=C3)=CC=C21": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 5.12,
+    "MLM": NaN,
+    "LogD": 2.6,
+    "KSOL": 131.0
+  },
+  "C[C@H]1CN(C2=CN=CC3=CC=CC=C23)C(=O)[C@@]12CN(CC1=CC(O)=NC=N1)C(=O)C1=CC=C(F)C=C12": {
+    "HLM": 2.0,
+    "MDR1-MDCKII": 1.0,
+    "MLM": 11.0,
+    "LogD": 0.8,
+    "KSOL": NaN
+  },
+  "O=C(NC1=CC2=C(C=C1C1CC1)CNC2)C1=CC(F)=CC2=C1C=NN2": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 3.41,
+    "MLM": 86.8,
+    "LogD": 0.7,
+    "KSOL": 189.0
+  },
+  "CNC(=O)CN1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2CNC2=CN=CC=N2)C2=CC(Cl)=CC=C2C1=O": {
+    "HLM": 66.0,
+    "MDR1-MDCKII": 1.0,
+    "MLM": 100.0,
+    "LogD": 1.9,
+    "KSOL": NaN
+  },
+  "CN1C=NC(CN2C[C@]3(CCN(C4=CN=CC5=CC=CC=C45)C3=O)C3=CC(Cl)=CC=C3C2=O)=N1": {
+    "HLM": 53.0,
+    "MDR1-MDCKII": 4.2,
+    "MLM": 73.0,
+    "LogD": 1.6,
+    "KSOL": 382.0
+  },
+  "CC1=NOC(CN2C[C@@]3(C(=O)N(C4=CN=CC5=CC=CC=C45)C[C@@H]3C)C3=CC(F)=CC=C3C2=O)=C1": {
+    "HLM": 80.0,
+    "MDR1-MDCKII": 12.5,
+    "MLM": 240.0,
+    "LogD": 2.1,
+    "KSOL": 392.0
+  },
+  "CNC(=O)CN1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2CN2C=CN=N2)C2=CC(F)=CC=C2C1=O": {
+    "HLM": 11.0,
+    "MDR1-MDCKII": 0.46,
+    "MLM": 12.0,
+    "LogD": 0.5,
+    "KSOL": NaN
+  },
+  "CC1=CC=NC=C1CCCOC1=CC=C(C2=NOC(C(F)(F)F)=N2)C=C1C": {
+    "HLM": 13.1,
+    "MDR1-MDCKII": 0.0927,
+    "MLM": 16.2,
+    "LogD": NaN,
+    "KSOL": 3.0
+  },
+  "CNC(=O)C1=CC=CC(C2=CC3=C(N[C@H](C4=CC=C5CCCS(=O)(=O)C5=C4)C(C)C)N=CN=C3N2)=C1": {
+    "HLM": 455.0,
+    "MDR1-MDCKII": 0.627,
+    "MLM": 882.0,
+    "LogD": 3.7,
+    "KSOL": 15.0
+  },
+  "O=C(NC1=CC(Cl)=CC([C@H]2CN(CC3=CC=CC=C3)C[C@@H]2C2=CC=CC(C3=NNN=N3)=C2)=C1)OCC1=CC=CC=C1": {
+    "HLM": 46.3,
+    "MDR1-MDCKII": 0.2,
+    "MLM": NaN,
+    "LogD": 4.1,
+    "KSOL": NaN
+  },
+  "O=C(NC1=CC=C2CNCC2=C1)C1=CC(Br)=CC2=C1N=C(C1=CC=CC=C1)N2": {
+    "HLM": 12.8,
+    "MDR1-MDCKII": 0.0942,
+    "MLM": 43.8,
+    "LogD": 3.6,
+    "KSOL": NaN
+  },
+  "CCCC[C@H](NC(=O)OC(C)(C)C)C(=O)N[C@H](C(=O)NCC1=CC=C(CN)C=C1)C1=CC=C(OCC2=CC=CC=C2)C=C1": {
+    "HLM": 56.0,
+    "MDR1-MDCKII": 0.833,
+    "MLM": 7.44,
+    "LogD": NaN,
+    "KSOL": 143.0
+  },
+  "CC1=NC=CN1C[C@H](C)CNC(=O)C1=CC=C2COB(O)C2=C1": {
+    "HLM": 1.0,
+    "MDR1-MDCKII": 1.3,
+    "MLM": 12.0,
+    "LogD": 0.2,
+    "KSOL": NaN
+  },
+  "N#CC1(C2=CC=CC=C2)CCN(C(=O)CC2=CN=CC3=CC=CC=C23)CC1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 25.4,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 14.0
+  },
+  "CC(C)[C@H](NC1=NC=NC2=C1C=CN2)C1=CC=C2OCCS(=O)(=O)C2=C1": {
+    "HLM": 18.0,
+    "MDR1-MDCKII": 4.4,
+    "MLM": 69.0,
+    "LogD": 2.6,
+    "KSOL": 372.0
+  },
+  "NCC1=CC=CC(CNC(=O)[C@H](NC(=O)OCC2=CC=CC=C2)C2=CC=C(OCC3=CC=CC=C3)C=C2)=C1": {
+    "HLM": 3.89,
+    "MDR1-MDCKII": 1.44,
+    "MLM": 2.73,
+    "LogD": 2.7,
+    "KSOL": 78.0
+  },
+  "O=C1CC2=CC(C(=O)NC3=CC=C4CNCC4=C3)=CC=C2N1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.873,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 136.0
+  },
+  "CNC(=O)CN1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2CNC2=CC=NC=N2)C2=CC(Cl)=CC=C2C1=O": {
+    "HLM": 44.0,
+    "MDR1-MDCKII": 2.1,
+    "MLM": 54.0,
+    "LogD": 1.6,
+    "KSOL": NaN
+  },
+  "CN(C)CCCN1C2=CC=CC=C2CCC2=CC=CC=C21": {
+    "HLM": NaN,
+    "MDR1-MDCKII": NaN,
+    "MLM": 169.0,
+    "LogD": NaN,
+    "KSOL": NaN
+  },
+  "CN(C1=CC=C2CNCC2=C1)[C@H](C(=O)NCC(F)F)C1=CC(Cl)=CC(C2CC2)=C1": {
+    "HLM": 17.1,
+    "MDR1-MDCKII": 2.1,
+    "MLM": 10.6,
+    "LogD": 1.6,
+    "KSOL": 172.0
+  },
+  "CNC(=O)CC1CCN(C(=O)CC2=CN=CC3=CC=CC=C23)CC1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 2.22,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 381.0
+  },
+  "O=C1N[C@H]2CCN(C(=O)CC3=CN=CC4=CC=CC=C34)[C@H]1C2": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 1.4,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 389.0
+  },
+  "C[C@H]1CN(C2=CN=CC3=CC=CC=C23)C(=O)[C@@]12CN(CC1=NN=NN1C)C(=O)C1=CC=C(F)C=C12": {
+    "HLM": 58.0,
+    "MDR1-MDCKII": 3.02,
+    "MLM": 172.0,
+    "LogD": 1.5,
+    "KSOL": 372.0
+  },
+  "CN1CCN(C)[C@H](CNC(=O)C2=CC=C3COB(O)C3=C2)C1": {
+    "HLM": 14.0,
+    "MDR1-MDCKII": 1.0,
+    "MLM": 16.0,
+    "LogD": -0.5,
+    "KSOL": NaN
+  },
+  "O=C(CC1=CN=CC2=CC=CC=C12)N1CC[C@]2(CCCC3=CC=CC=C32)C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 15.0,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 314.0
+  },
+  "CNC(=O)CN1C=C(C2=CC3=C(N[C@H](C4=CC=C5OCCOC5=C4)C(C)C)N=CN=C3N2)C=N1": {
+    "HLM": 119.0,
+    "MDR1-MDCKII": 1.94,
+    "MLM": 47.0,
+    "LogD": 2.9,
+    "KSOL": 289.0
+  },
+  "CC1=NN=C(CCCOC2=CC=C(C3=NOC(C(F)(F)F)=N3)C=C2C)O1": {
+    "HLM": 16.6,
+    "MDR1-MDCKII": 8.89,
+    "MLM": 74.6,
+    "LogD": 4.4,
+    "KSOL": 78.0
+  },
+  "C1=CC=C2C(CN3CCC(C4=CNC5=CC=CN=C45)CC3)=CNC2=C1": {
+    "HLM": 16.0,
+    "MDR1-MDCKII": 4.6,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": NaN
+  },
+  "CC(C)[C@H](NC1=NC=NC2=C1C=C(C1=C(C#N)N(C)N=C1)N2)C1=CC=C2OCCOC2=C1": {
+    "HLM": 74.0,
+    "MDR1-MDCKII": 4.2,
+    "MLM": 218.0,
+    "LogD": 3.0,
+    "KSOL": 17.0
+  },
+  "CC(C)NC(=O)[C@H](NC1=CC=C2CNCC2=C1)C1=CC(Cl)=CC2=C1C=NN2": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.963,
+    "MLM": NaN,
+    "LogD": 0.5,
+    "KSOL": 311.0
+  },
+  "CCOC1=NOC2=CC(OCCCC3=CC(C(=O)N(C)C)=NO3)=CC=C12": {
+    "HLM": 31.2,
+    "MDR1-MDCKII": 14.8,
+    "MLM": 140.0,
+    "LogD": 3.5,
+    "KSOL": 18.0
+  },
+  "CNC(=O)[C@H]1CC12CCN(C(=O)CC1=CN=CC3=CC=CC=C13)CC2": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 1.98,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 366.0
+  },
+  "CC(C)NC[C@H](O)COC1=CC=C(CC(N)=O)C=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.7,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": NaN
+  },
+  "CC1=NN=C(SC2=CC(C3=CC=CC=C3)=NC3=NC=NN23)O1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.0448,
+    "MLM": 465.0,
+    "LogD": 1.8,
+    "KSOL": 60.0
+  },
+  "O=C(NC1=CC=C2CNCC2=C1)C1=CC=CC2=C1C=C(C(F)(F)F)N2": {
+    "HLM": 14.1,
+    "MDR1-MDCKII": 4.1,
+    "MLM": 12.7,
+    "LogD": 1.5,
+    "KSOL": 372.0
+  },
+  "O=C(NC1=CC(Cl)=CC(C(=O)NC2=CC=C3CNCC3=C2)=C1)OCC1=CC=CC=C1": {
+    "HLM": 12.7,
+    "MDR1-MDCKII": 1.25,
+    "MLM": NaN,
+    "LogD": 2.8,
+    "KSOL": 35.0
+  },
+  "CO[C@H]1C[C@H](N2N=CC3=C(C(=O)NC4=CC=C5CNCC5=C4)C=C(Cl)C=C32)C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 1.6,
+    "MLM": NaN,
+    "LogD": 1.5,
+    "KSOL": 340.0
+  },
+  "O=S(=O)(NCCC1=NC=CC(O)=N1)N1CCNCC1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.723,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 349.0
+  },
+  "CN(C)C(=O)C1=NOC(CCCOC2=CC=C(C3=NOC(C4CC4)=N3)C=C2)=C1": {
+    "HLM": 29.8,
+    "MDR1-MDCKII": 23.9,
+    "MLM": 54.7,
+    "LogD": 3.6,
+    "KSOL": 16.0
+  },
+  "CCOC(=O)C1=CC=C(OCCC2CCN(C3=CC=C(C)N=N3)CC2)C=C1": {
+    "HLM": 708.0,
+    "MDR1-MDCKII": 9.01,
+    "MLM": 580.0,
+    "LogD": 4.1,
+    "KSOL": 9.0
+  },
+  "CC(C)[C@H](NC1=NC=NC2=C1C=CN2)C1=CC=C2OCCOC2=C1": {
+    "HLM": 50.0,
+    "MDR1-MDCKII": 26.8,
+    "MLM": 340.0,
+    "LogD": 3.2,
+    "KSOL": 224.0
+  },
+  "O=C(NC1=CC(Cl)=CC(C(=O)NC2=CC=CC(C3CCNCC3)=C2)=C1)OCC1=CC=CC=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 1.8,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 126.0
+  },
+  "CC1=CC(C2=NOC(C(F)(F)F)=N2)=CC=C1COCCC1=CC(C(=O)N(C)C)=NO1": {
+    "HLM": 36.5,
+    "MDR1-MDCKII": 15.2,
+    "MLM": 78.9,
+    "LogD": 3.5,
+    "KSOL": 68.0
+  },
+  "CC(C)[C@H](NC1=NC=NC2=C1C=CN2)C1=CC=C2CCCS(=O)(=O)C2=C1": {
+    "HLM": 37.0,
+    "MDR1-MDCKII": 3.3,
+    "MLM": 138.0,
+    "LogD": 2.5,
+    "KSOL": 385.0
+  },
+  "C1=CC=C2SC(C3CCN(CC4=CNC5=CC=CC=C45)CC3)=NC2=C1": {
+    "HLM": 38.1,
+    "MDR1-MDCKII": 5.82,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 119.0
+  },
+  "C#CCCCCC1=CC=C(OCCCC2=CC(C(=O)N(C)C)=NO2)C=C1": {
+    "HLM": 79.9,
+    "MDR1-MDCKII": 7.87,
+    "MLM": 139.0,
+    "LogD": 4.4,
+    "KSOL": 4.0
+  },
+  "CC(C)[C@H](NC1=NC=NC2=C1C=C(C1=CC=C3N=NN(C)C3=C1)N2)C1=CC=C2CCCS(=O)(=O)C2=C1": {
+    "HLM": 752.0,
+    "MDR1-MDCKII": 0.827,
+    "MLM": 219.0,
+    "LogD": 3.4,
+    "KSOL": 6.0
+  },
+  "CC1=CC([C@H](NC2=CC=C3CNCC3=C2)C(=O)NCC(F)F)=CC(C(F)(F)F)=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.7,
+    "MLM": NaN,
+    "LogD": 1.0,
+    "KSOL": NaN
+  },
+  "CC1=CC(C2=NOC(C(F)(F)F)=N2)=CC=C1OCCCC1=CN=CO1": {
+    "HLM": 10.5,
+    "MDR1-MDCKII": 1.58,
+    "MLM": 48.2,
+    "LogD": NaN,
+    "KSOL": 3.0
+  },
+  "O=C(C1=CC=C2COB(O)C2=C1)N1CCN[C@H](C2=CC=CC=C2)C1": {
+    "HLM": 4.0,
+    "MDR1-MDCKII": 5.2,
+    "MLM": 12.0,
+    "LogD": 0.8,
+    "KSOL": NaN
+  },
+  "CC1=CC(C2=CC=C([C@H](NC(=O)OCC3=CC=CC=C3)C(=O)NC3=CC=CC(CN)=C3)C=C2)=CS1": {
+    "HLM": 29.5,
+    "MDR1-MDCKII": 1.19,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 8.0
+  },
+  "C[C@H]1CN(C2=CN=CC3=CC=CC=C23)C(=O)[C@@]12CN(CC(=O)NCC1CC1)C(=O)C1=CC=C(F)C=C12": {
+    "HLM": 293.0,
+    "MDR1-MDCKII": 2.7,
+    "MLM": 832.0,
+    "LogD": 1.9,
+    "KSOL": 370.0
+  },
+  "CC(C)[C@H](NC1=NC=NC2=C1C=C(C1=CN(CC(N)=O)N=C1)N2)C1=CC=C2OCC(=O)NC2=C1": {
+    "HLM": 17.0,
+    "MDR1-MDCKII": 1.36,
+    "MLM": 11.0,
+    "LogD": 2.5,
+    "KSOL": 25.0
+  },
+  "O=C(NCC1=CC=CC=N1)NC1=CNC(=O)C2=CC=CN=C12": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 2.8,
+    "MLM": NaN,
+    "LogD": 0.9,
+    "KSOL": 285.0
+  },
+  "CC1=CC(C2=NOC(C(F)(F)F)=N2)=CC=C1OCCCC1=CC(C(=O)N2CCOCC2)=NO1": {
+    "HLM": 18.5,
+    "MDR1-MDCKII": 1.64,
+    "MLM": 98.3,
+    "LogD": NaN,
+    "KSOL": 4.0
+  },
+  "O=C(NC1=CC(Cl)=CC(C2=CC=C3NC(C(=O)O)=CC3=C2)=C1)OCC1=CC=CC=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.61,
+    "MLM": NaN,
+    "LogD": 3.7,
+    "KSOL": 356.0
+  },
+  "COCC1=CC(Cl)=CC([C@H](NC2=CC=C3CNCC3=C2)C(=O)NCC(F)F)=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 1.7,
+    "MLM": NaN,
+    "LogD": 0.2,
+    "KSOL": 192.0
+  },
+  "CCOC1=CC=CC(C2=CC=C(S(=O)(=O)NC3=CC=C(Cl)C=C3C(=O)O)C=C2)=C1": {
+    "HLM": 119.0,
+    "MDR1-MDCKII": 6.22,
+    "MLM": NaN,
+    "LogD": 2.8,
+    "KSOL": 392.0
+  },
+  "CN1N=CC=C1[C@H]1CCCN1C(=O)CC1=CN=CC2=CC=CC=C12": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 13.1,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 379.0
+  },
+  "CC1=NN(C)C=C1C1=CC2=C(N[C@H](C3=CC=C4CCCS(=O)(=O)C4=C3)C(C)C)N=CN=C2N1": {
+    "HLM": 273.0,
+    "MDR1-MDCKII": 4.36,
+    "MLM": 202.0,
+    "LogD": 3.1,
+    "KSOL": 65.0
+  },
+  "COC1=CC(Cl)=CC([C@H](NC2=CC=C3CNCC3=C2)C(=O)NCC(F)F)=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.7,
+    "MLM": NaN,
+    "LogD": 0.5,
+    "KSOL": NaN
+  },
+  "NCC1=CC(Cl)=CC(C(=O)NC2=CC=C3CNCC3=C2)=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": NaN,
+    "MLM": NaN,
+    "LogD": 2.0,
+    "KSOL": NaN
+  },
+  "CN1N=NN=C1CN1C[C@]2(CCN(C3=CN=CC4=CC=CC=C34)C2=O)C2=CC(Cl)=CC=C2C1=O": {
+    "HLM": 57.0,
+    "MDR1-MDCKII": 3.8,
+    "MLM": 129.0,
+    "LogD": 1.9,
+    "KSOL": 398.0
+  },
+  "CC(C)COC1=CC=C2C(OCCCC3=CC(C(=O)N(C)C)=NO3)=NOC2=C1": {
+    "HLM": 95.1,
+    "MDR1-MDCKII": 7.05,
+    "MLM": 68.5,
+    "LogD": NaN,
+    "KSOL": 15.0
+  },
+  "O=C(O)C1=CC(Cl)=CC=C1NS(=O)(=O)C1=CC=C(C2=CC=CC=C2Cl)C=C1": {
+    "HLM": 343.0,
+    "MDR1-MDCKII": 7.59,
+    "MLM": NaN,
+    "LogD": 3.6,
+    "KSOL": 397.0
+  },
+  "CC(C)NC(=O)[C@H](NC1=CC=C2CNCC2=C1)C1=CC(Cl)=CC2=C1N=C(C1=CC=CC=C1)N2": {
+    "HLM": 23.2,
+    "MDR1-MDCKII": 0.432,
+    "MLM": NaN,
+    "LogD": 2.9,
+    "KSOL": 154.0
+  },
+  "CNC(=O)CN1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2CS(C)(=O)=O)C2=CC(F)=CC=C2C1=O": {
+    "HLM": 21.0,
+    "MDR1-MDCKII": 0.48,
+    "MLM": 9.0,
+    "LogD": 0.4,
+    "KSOL": NaN
+  },
+  "CNS(=O)(=O)[C@H]1CCCN(C(=O)CC2=CN=CC3=CC=CC=C23)C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 3.87,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 380.0
+  },
+  "CC(C)[C@H](NC1=NC=NC2=C1C=C(C(=O)N[C@@H]1CCN(C)C1)N2)C1=CC=C2CCCS(=O)(=O)C2=C1": {
+    "HLM": 20.0,
+    "MDR1-MDCKII": 2.94,
+    "MLM": 11.0,
+    "LogD": 1.6,
+    "KSOL": 392.0
+  },
+  "C[C@H]1CN(C2=CN=CC3=CC=CC=C23)C(=O)[C@@]12CN(CC(=O)NCC1(F)CC1)C(=O)C1=CC=C(F)C=C12": {
+    "HLM": 122.0,
+    "MDR1-MDCKII": 2.4,
+    "MLM": 486.0,
+    "LogD": 1.7,
+    "KSOL": NaN
+  },
+  "O=C(NC1=C2NC=C(C(=O)N[C@H]3C4=CC=CC=C4C[C@H]3C(=O)O)C2=CC=C1)NC1CC1": {
+    "HLM": 6.0,
+    "MDR1-MDCKII": 1.8,
+    "MLM": 4.0,
+    "LogD": -0.05,
+    "KSOL": NaN
+  },
+  "NCC1=CC=CC(NC(=O)[C@H](NC(=O)OCC2=CC=CC=C2)C(C2CCC2)C2CCC2)=C1": {
+    "HLM": 12.6,
+    "MDR1-MDCKII": 1.6,
+    "MLM": NaN,
+    "LogD": 2.5,
+    "KSOL": NaN
+  },
+  "CC1=CC(C2=NOC(C(F)(F)F)=N2)=CC=C1OCCCC1=CC(C(=O)N2CC[C@@H](O)C2)=NO1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 2.09,
+    "MLM": 13.0,
+    "LogD": 4.4,
+    "KSOL": 12.0
+  },
+  "C[C@H]1CN(C2=CN=CC3=CC=CC=C23)C(=O)[C@@]12CN(CCN1CCN(S(C)(=O)=O)CC1)C(=O)C1=CC=C(Cl)C=C12": {
+    "HLM": 237.0,
+    "MDR1-MDCKII": 1.33,
+    "MLM": 237.0,
+    "LogD": 1.8,
+    "KSOL": 376.0
+  },
+  "O=C(N[C@H]1[C@H]2CCCCC[C@H]2[C@H]1C(=O)NC1=CC=CC(C2CCNCC2)=C1)OCC1=CC=CC=C1": {
+    "HLM": 31.3,
+    "MDR1-MDCKII": 0.395,
+    "MLM": NaN,
+    "LogD": 2.8,
+    "KSOL": 49.0
+  },
+  "CC1=CC(C2=NOC(C(F)(F)F)=N2)=CC=C1OCCCC1=CC(C(=O)N2CC[C@H](O)C2)=NO1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 2.47,
+    "MLM": 12.3,
+    "LogD": 4.4,
+    "KSOL": 13.0
+  },
+  "O=C(NC1=CC(Br)=C2CNCC2=C1)C1=CC(F)=CC2=C1C=NN2": {
+    "HLM": 13.6,
+    "MDR1-MDCKII": 3.4,
+    "MLM": 145.0,
+    "LogD": 1.8,
+    "KSOL": 4.0
+  },
+  "CC(C)C1=NC2=C(C(=O)NC3=CC=CC(CN)=C3)C=CC=C2N1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 3.84,
+    "MLM": NaN,
+    "LogD": 1.9,
+    "KSOL": 316.0
+  },
+  "CO[C@@H](C)CN1C[C@H](C(=O)NC2=CN=CC3=CC=CC=C23)C2=CC(Cl)=CC=C2C1=O": {
+    "HLM": 114.0,
+    "MDR1-MDCKII": 8.5,
+    "MLM": 557.0,
+    "LogD": 2.2,
+    "KSOL": 376.0
+  },
+  "CC1=CC(C2=NOC(C(F)(F)F)=N2)=CC=C1OCCCC1=CC=CN=C1": {
+    "HLM": 14.9,
+    "MDR1-MDCKII": 0.578,
+    "MLM": 46.2,
+    "LogD": NaN,
+    "KSOL": 7.0
+  },
+  "CNC(=O)[C@H](NC1=CC=C2CNCC2=C1)C1=CC(Cl)=CC(C2CC2)=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 1.5,
+    "MLM": NaN,
+    "LogD": 0.9,
+    "KSOL": 358.0
+  },
+  "ClC1=CC=CC(C2=NN=C(SC3=CC(C4=CC=CC=C4)=NC4=NC=NN34)O2)=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 1.85,
+    "MLM": NaN,
+    "LogD": 4.1,
+    "KSOL": NaN
+  },
+  "N#C[C@H](NC1=CC=CC(C(=O)O)=C1)C1=CC(Cl)=CC2=C1C=NN2": {
+    "HLM": 12.0,
+    "MDR1-MDCKII": 1.22,
+    "MLM": NaN,
+    "LogD": 0.6,
+    "KSOL": 112.0
+  },
+  "CC1=CC(C2=NOC(C(F)(F)F)=N2)=CC=C1OCCCC1=NN=C(C(F)F)O1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 1.93,
+    "MLM": 19.0,
+    "LogD": NaN,
+    "KSOL": 6.0
+  },
+  "O=C(NC1=CC=C2CNCC2=C1)C1=CC(F)=CC(C2=CNN=C2)=C1": {
+    "HLM": 36.3,
+    "MDR1-MDCKII": 1.62,
+    "MLM": 553.0,
+    "LogD": 0.7,
+    "KSOL": 184.0
+  },
+  "CNC(=O)CN1C[C@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@H]2CC2CC2)C2=CC(Cl)=CC=C2C1=O": {
+    "HLM": 83.0,
+    "MDR1-MDCKII": 1.73,
+    "MLM": 77.0,
+    "LogD": 2.3,
+    "KSOL": 372.0
+  },
+  "CC(C)[C@H](NC1=NC=NC2=C1C=C(C1=C(C#N)N(C)N=C1)N2)C1=CC=C2CCCS(=O)(=O)C2=C1": {
+    "HLM": 490.0,
+    "MDR1-MDCKII": 1.97,
+    "MLM": 440.0,
+    "LogD": 3.6,
+    "KSOL": 34.0
+  },
+  "CNCC1=NC2=NC=NN2C(SC2=NN=C(C3=CC=C(Cl)C=C3)N2C)=C1": {
+    "HLM": 0.0,
+    "MDR1-MDCKII": 0.441,
+    "MLM": 0.0,
+    "LogD": 0.7,
+    "KSOL": 356.0
+  },
+  "CCNC(=O)CN1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2C)C2=CC(F)=CC=C2C1=O": {
+    "HLM": 65.0,
+    "MDR1-MDCKII": 2.79,
+    "MLM": 232.0,
+    "LogD": 1.5,
+    "KSOL": NaN
+  },
+  "CC1=CC=CC=C1C1=NN=C(SC2=CC(C3=CC=CC=C3)=NC3=NC=NN23)O1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.0109,
+    "MLM": NaN,
+    "LogD": 3.7,
+    "KSOL": 7.0
+  },
+  "CC(C)[C@H](NC1=NC=NC2=C1C=C(C1=CN(CCC(N)=O)N=C1)N2)C1=CC=C2OCCOC2=C1": {
+    "HLM": 99.0,
+    "MDR1-MDCKII": 1.46,
+    "MLM": 62.0,
+    "LogD": 3.0,
+    "KSOL": 236.0
+  },
+  "CCNC(=O)C1=CC2=C(N[C@H](C3=CC=C4OCCOC4=C3)C(C)C)N=CN=C2N1": {
+    "HLM": 85.0,
+    "MDR1-MDCKII": 2.41,
+    "MLM": 88.0,
+    "LogD": 3.0,
+    "KSOL": 72.0
+  },
+  "CNC(=O)CN1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2CS(=O)(=O)N(C)C)C2=CC(Cl)=CC=C2C1=O": {
+    "HLM": 194.0,
+    "MDR1-MDCKII": 1.0,
+    "MLM": 123.0,
+    "LogD": 1.6,
+    "KSOL": 382.0
+  },
+  "O=C(CC1=CN=CC2=CC=CC=C12)N1[C@H]2CC[C@H]1C1=NC=CC=C12": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 19.3,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 377.0
+  },
+  "NCC1=CC(C(=O)O)=CC([C@@H]2C[C@H]2C2=CC(Cl)=CC(NC(=O)OCC3=CC=CC=C3)=C2)=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.819,
+    "MLM": NaN,
+    "LogD": 2.7,
+    "KSOL": 52.0
+  },
+  "C[C@H](C(=O)O)C1=CC=CC(C(=O)C2=CC=CC=C2)=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 14.6,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": NaN
+  },
+  "CC[C@H]1C[C@@H](C(F)(F)F)CCN1C(=O)CC1=CN=CC2=CC=CC=C12": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 20.0,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 219.0
+  },
+  "CC(C)[C@H](NC1=NC=NC2=C1C=C(C1=CN3C=NC=C3C=C1)N2)C1=CC=C2CCCS(=O)(=O)C2=C1": {
+    "HLM": 210.0,
+    "MDR1-MDCKII": 0.56,
+    "MLM": 170.0,
+    "LogD": 4.0,
+    "KSOL": 14.0
+  },
+  "CCNC(=O)C1=CC2=C(N[C@H](C3=CC=C4OCCS(=O)(=O)C4=C3)C(C)C)N=CN=C2N1": {
+    "HLM": 64.0,
+    "MDR1-MDCKII": 0.471,
+    "MLM": 26.0,
+    "LogD": 2.9,
+    "KSOL": 328.0
+  },
+  "CC1=NOC(CCCOC2=CC=C(C3=NOC(C(F)(F)F)=N3)C=C2C)=N1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 2.84,
+    "MLM": 112.0,
+    "LogD": NaN,
+    "KSOL": 4.0
+  },
+  "CC1=CC(C2=NOC(C(F)(F)F)=N2)=CC=C1OCCCC1=CC=NC=C1": {
+    "HLM": 10.9,
+    "MDR1-MDCKII": 0.468,
+    "MLM": 24.0,
+    "LogD": NaN,
+    "KSOL": 4.0
+  },
+  "CC(C)[C@@H](NC1=NC=NC2=C1C=C(C1=C(C#N)N(C)N=C1)N2)C1=CC=C2OCCOC2=C1": {
+    "HLM": 47.0,
+    "MDR1-MDCKII": 5.11,
+    "MLM": 129.0,
+    "LogD": 3.4,
+    "KSOL": 20.0
+  },
+  "C[C@H]1CN(C2=CN=CC3=CC=CC=C23)C(=O)[C@@]12CN(CC1=CC=NN1)C(=O)C1=CC=C(F)C=C12": {
+    "HLM": 44.0,
+    "MDR1-MDCKII": 4.26,
+    "MLM": 163.0,
+    "LogD": 2.0,
+    "KSOL": 397.0
+  },
+  "O=C1C[C@H]2CCN(C(=O)CC3=CN=CC4=CC=CC=C34)C[C@H]2N1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.844,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 377.0
+  },
+  "NCC1=CC=CC(NC(=O)C2=CC=CN3C=C(CN4CCCC4)N=C23)=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 5.25,
+    "MLM": NaN,
+    "LogD": 0.2,
+    "KSOL": 332.0
+  },
+  "CC1=CC(OCC2=CC=CC=C2)=CC=C1NS(=O)(=O)C1=CC=C(Cl)C=C1C(=O)O": {
+    "HLM": 22.3,
+    "MDR1-MDCKII": 4.61,
+    "MLM": NaN,
+    "LogD": 2.7,
+    "KSOL": 394.0
+  },
+  "CNC(=O)[C@H](NC1=CC(CN)=CC(C2=NNN=N2)=C1)C1=CC(Cl)=CC(C2CC2)=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.302,
+    "MLM": NaN,
+    "LogD": 1.5,
+    "KSOL": 352.0
+  },
+  "O=C(NCC(F)F)[C@H](NC1=CC=C2CNCC2=C1)C1=CC(Cl)=CC2=C1OC=C2": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 2.1,
+    "MLM": NaN,
+    "LogD": 0.6,
+    "KSOL": 187.0
+  },
+  "O=C1C2=CC=C(Cl)C=C2[C@@]2(CN1CCN1CCOCC1)C(=O)N(C1=CN=CC3=CC=CC=C13)C[C@@H]2CNC1=NC=CC=N1": {
+    "HLM": 108.0,
+    "MDR1-MDCKII": 1.17,
+    "MLM": 133.0,
+    "LogD": 1.9,
+    "KSOL": 382.0
+  },
+  "NCC1=CC=CC(NC(=O)[C@@H](NC(=O)OCC2=CC=CC=C2)C2=CC=C(OCC3=CC=CC=C3)C=C2)=C1": {
+    "HLM": 11.0,
+    "MDR1-MDCKII": 1.53,
+    "MLM": 1.0,
+    "LogD": 3.2,
+    "KSOL": 23.0
+  },
+  "COC1=CC=C2C(=C1)CCN(C1=NC=NC3=C1C=CN3)[C@H]2C(C)C": {
+    "HLM": 60.0,
+    "MDR1-MDCKII": 7.0,
+    "MLM": 321.0,
+    "LogD": 4.33,
+    "KSOL": 14.0
+  },
+  "O=C(NC1=CC2=C(CNC2)C(C2=CCOCC2)=C1)C1=CC(F)=CC2=C1C=NN2": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 1.1,
+    "MLM": 152.0,
+    "LogD": 0.9,
+    "KSOL": 157.0
+  },
+  "O=C(NCC(F)F)[C@H](NC1=CC2=C(C=C1Br)CNC2)C1=CC(Cl)=CC(C2CC2)=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.2,
+    "MLM": NaN,
+    "LogD": 2.9,
+    "KSOL": 333.0
+  },
+  "CNC(=O)CN1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2CS(=O)(=O)NC)C2=CC(F)=CC=C2C1=O": {
+    "HLM": 33.0,
+    "MDR1-MDCKII": 0.9,
+    "MLM": 29.0,
+    "LogD": 0.7,
+    "KSOL": NaN
+  },
+  "CCOC1=NOC2=CC(OCCC3CCN(C4=CC=C(C)N=N4)CC3)=CC=C12": {
+    "HLM": 41.7,
+    "MDR1-MDCKII": 2.41,
+    "MLM": 95.3,
+    "LogD": 3.0,
+    "KSOL": 16.0
+  },
+  "O=C(CC1=CN=CC2=CC=CC=C12)N1CC[C@]2(CC=CCO2)C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 19.2,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 382.0
+  },
+  "C[C@H]1CN(C2=CN=CC3=CC=CC=C23)C(=O)[C@@]12CN(CC#N)C(=O)C1=CC=C(F)C=C12": {
+    "HLM": 85.0,
+    "MDR1-MDCKII": 8.26,
+    "MLM": 84.0,
+    "LogD": 1.7,
+    "KSOL": 375.0
+  },
+  "CCNC(=O)C1=CC2=C(N[C@H](C3=CC=C4CCNS(=O)(=O)C4=C3)C(C)C)N=CN=C2N1": {
+    "HLM": 85.0,
+    "MDR1-MDCKII": 1.96,
+    "MLM": 45.0,
+    "LogD": 2.6,
+    "KSOL": 344.0
+  },
+  "O=C(NCC(F)F)[C@H](NC1=CN=C2CNCC2=C1)C1=CC(Cl)=CC(C2CC2)=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.8,
+    "MLM": NaN,
+    "LogD": 1.5,
+    "KSOL": 362.0
+  },
+  "ClC1=CC=C2NC=C(CC3=CC=C(C4=NNN=N4)C=C3)C2=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 8.4,
+    "MLM": NaN,
+    "LogD": 2.1,
+    "KSOL": NaN
+  },
+  "CNCCN1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2C)C2=CC(Cl)=CC=C2C1=O": {
+    "HLM": 4.0,
+    "MDR1-MDCKII": 2.44,
+    "MLM": 3.0,
+    "LogD": 0.7,
+    "KSOL": 398.0
+  },
+  "COC(=O)NC1=NC2=CC=C(C(=O)C3=CC=CC=C3)C=C2N1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": NaN,
+    "MLM": NaN,
+    "LogD": 2.9,
+    "KSOL": NaN
+  },
+  "CC1=NC=CN1C[C@H]1CCC2=C(C1=O)C1=CC=CC=C1N2C": {
+    "HLM": NaN,
+    "MDR1-MDCKII": NaN,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 127.0
+  },
+  "COCCNC(=O)[C@H](NC1=CC=C2CNCC2=C1)C1=CC(Cl)=CC(C2CC2)=C1": {
+    "HLM": 19.7,
+    "MDR1-MDCKII": 1.4,
+    "MLM": 11.7,
+    "LogD": 1.0,
+    "KSOL": 320.0
+  },
+  "ClC1=CC=C(C2=CN=C(SC3=CC(C4=CC=CC=C4)=NC4=NN=CN34)O2)C=C1": {
+    "HLM": 25.2,
+    "MDR1-MDCKII": 0.289,
+    "MLM": 27.1,
+    "LogD": 4.2,
+    "KSOL": NaN
+  },
+  "CN(C)C(=O)C1=NOC(CCCOC2=CC=C3C(OCC4CC4)=NOC3=C2)=C1": {
+    "HLM": 35.5,
+    "MDR1-MDCKII": 5.07,
+    "MLM": 132.0,
+    "LogD": 3.7,
+    "KSOL": 7.0
+  },
+  "C[C@H]1CN(C2=CN=CC3=CC=CC=C23)C(=O)[C@@]12CN(CC1=NNC=N1)C(=O)C1=CC=C(F)C=C12": {
+    "HLM": 2.0,
+    "MDR1-MDCKII": 1.6,
+    "MLM": 19.0,
+    "LogD": 1.3,
+    "KSOL": NaN
+  },
+  "C[C@H]1CN(C2=CN=CC3=CC=CC=C23)C(=O)[C@@]12CN(CC(=O)NCC1=CC=NN1C)C(=O)C1=CC=C(Cl)C=C12": {
+    "HLM": 364.0,
+    "MDR1-MDCKII": 0.844,
+    "MLM": 365.0,
+    "LogD": 2.0,
+    "KSOL": 375.0
+  },
+  "CO[C@@H](C)CN1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2C)C2=CC(F)=CC=C2C1=O": {
+    "HLM": 87.0,
+    "MDR1-MDCKII": 27.7,
+    "MLM": 371.0,
+    "LogD": 2.0,
+    "KSOL": NaN
+  },
+  "CC1=CC(C2=NOC(C(F)(F)F)=N2)=CC=C1OCCCC1=CC=CC=N1": {
+    "HLM": 10.7,
+    "MDR1-MDCKII": 0.55,
+    "MLM": 31.3,
+    "LogD": NaN,
+    "KSOL": 10.0
+  },
+  "O=C(NC1=CC=C2CNCC2=C1)C1=CC(Cl)=CC2=C1C=NN2": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 1.8,
+    "MLM": 243.0,
+    "LogD": 0.9,
+    "KSOL": 279.0
+  },
+  "CN1N=CC(C2=CC3=C(N[C@H](C4=CC=C5OCCOC5=C4)C(C)(C)C)N=CN=C3N2)=C1C#N": {
+    "HLM": 85.0,
+    "MDR1-MDCKII": 2.79,
+    "MLM": 199.0,
+    "LogD": 2.9,
+    "KSOL": 25.0
+  },
+  "CNC(=O)C1=CNC2=NC=NC(N[C@H](C3=CC=C4CCCS(=O)(=O)C4=C3)C(C)C)=C12": {
+    "HLM": 131.0,
+    "MDR1-MDCKII": 2.23,
+    "MLM": 192.0,
+    "LogD": 2.5,
+    "KSOL": 390.0
+  },
+  "CC(C)[C@H](NC1=NC=NC2=C1C=C(C1=C(C#N)N(C)N=C1)N2)C1=CC=C2OCCOC2=N1": {
+    "HLM": 56.0,
+    "MDR1-MDCKII": 12.8,
+    "MLM": 139.0,
+    "LogD": 3.4,
+    "KSOL": 89.0
+  },
+  "NCC1=CC=CC(NC(=O)[C@H](NC(=O)OCC2=CC=CC=C2)C2CCCCC2)=C1": {
+    "HLM": 5.29,
+    "MDR1-MDCKII": 1.58,
+    "MLM": NaN,
+    "LogD": 2.0,
+    "KSOL": NaN
+  },
+  "O=C(CC1=CN=CC2=CC=CC=C12)N1CCC(N2C(=O)NC3=CC=CC=C32)CC1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 4.78,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 371.0
+  },
+  "CC(C)[C@H](NC1=NC=NC2=C1C=C(C1=CN(C)N=C1)N2)C1=CC=C2CCCS(=O)(=O)C2=C1": {
+    "HLM": 141.0,
+    "MDR1-MDCKII": 1.73,
+    "MLM": 155.0,
+    "LogD": 3.3,
+    "KSOL": 94.0
+  },
+  "C[C@H](C(=O)O)[C@@H](NC(=O)C1=NC=NC2=C1C=CN2)C1=CC=C(Br)C=C1": {
+    "HLM": 3.0,
+    "MDR1-MDCKII": 0.682,
+    "MLM": 4.0,
+    "LogD": 0.6,
+    "KSOL": 358.0
+  },
+  "COC1=CC=C(CNC(=O)NC2=CNC(=O)C3=CC=NC=C23)C=N1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 1.31,
+    "MLM": NaN,
+    "LogD": 0.7,
+    "KSOL": 311.0
+  },
+  "CC(C)[C@H](NC1=NC=NC2=C1C=CN2)C1=CC=C2OCCOC2=N1": {
+    "HLM": 31.0,
+    "MDR1-MDCKII": 20.7,
+    "MLM": 170.0,
+    "LogD": 2.8,
+    "KSOL": 391.0
+  },
+  "N#CCCNC(=O)[C@H](NC1=CC=C2CNCC2=C1)C1=CC(Cl)=CC(C2CC2)=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.5,
+    "MLM": NaN,
+    "LogD": 0.6,
+    "KSOL": 374.0
+  },
+  "O=C(O)CC1=CC=CC=C1NC1=C(Cl)C=CC=C1Cl": {
+    "HLM": 216.0,
+    "MDR1-MDCKII": NaN,
+    "MLM": 386.0,
+    "LogD": NaN,
+    "KSOL": NaN
+  },
+  "COC1=CC=C(C2=NN=C(SC3=CC(C4=CC=CC=C4)=NC4=NC=NN34)O2)C=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.00274,
+    "MLM": NaN,
+    "LogD": 4.0,
+    "KSOL": 39.0
+  },
+  "CN(C)C(=O)C1=NOC(CCCOC2=CC=C3CCCCC3=C2F)=C1": {
+    "HLM": 166.0,
+    "MDR1-MDCKII": 13.0,
+    "MLM": 218.0,
+    "LogD": 4.2,
+    "KSOL": 7.0
+  },
+  "CC1=CC(C2=NOC(C(F)(F)F)=N2)=CC=C1CCOCC1=CC(C(=O)N(C)C)=NO1": {
+    "HLM": 48.4,
+    "MDR1-MDCKII": 4.04,
+    "MLM": 86.9,
+    "LogD": 4.0,
+    "KSOL": 48.0
+  },
+  "CNC(=O)CN1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2CN2C=CC=N2)C2=CC(Cl)=CC=C2C1=O": {
+    "HLM": 51.0,
+    "MDR1-MDCKII": 0.612,
+    "MLM": 83.0,
+    "LogD": 1.9,
+    "KSOL": NaN
+  },
+  "C=CC(=O)NC1=CC=CC(N(CC2=CC=CC(Cl)=C2)C(=O)CC2=CN=CC3=CC=CC=C23)=C1": {
+    "HLM": 1070.0,
+    "MDR1-MDCKII": 8.0,
+    "MLM": 2380.0,
+    "LogD": 3.8,
+    "KSOL": 24.7
+  },
+  "N#CC1=CC2=C(C=C1NC(=O)C1=CC(F)=CC3=C1C=NN3)CNC2": {
+    "HLM": 16.7,
+    "MDR1-MDCKII": 3.9,
+    "MLM": 288.0,
+    "LogD": 0.6,
+    "KSOL": 193.0
+  },
+  "CN1C(SC2=CC(C3=CC=CC=C3)=NC3=NC=NN23)=NN=C1C1=CC=NC=C1": {
+    "HLM": 174.0,
+    "MDR1-MDCKII": 0.0237,
+    "MLM": 130.0,
+    "LogD": 1.4,
+    "KSOL": 21.0
+  },
+  "CC1=CC(C2=NOC(C(F)(F)F)=N2)=CC=C1OCCCC1=CN(C)N=C1": {
+    "HLM": 18.1,
+    "MDR1-MDCKII": 0.696,
+    "MLM": 72.5,
+    "LogD": 4.2,
+    "KSOL": 4.0
+  },
+  "COC1=CC(C2=CC(NC(=O)C3=CC(F)=CC4=C3C=NN4)=CC3=C2CNC3)=CC=N1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.788,
+    "MLM": 260.0,
+    "LogD": 2.0,
+    "KSOL": 180.0
+  },
+  "O=C(NC1=CC2=C(CNC2)C(C2=CCS(=O)(=O)CC2)=C1)C1=CC(F)=CC2=C1C=NN2": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 1.3,
+    "MLM": 96.9,
+    "LogD": -0.1,
+    "KSOL": 141.0
+  },
+  "CN(C)C(=O)C1=NOC(CCCOC2=CC=C(F)C=C2)=C1": {
+    "HLM": 42.6,
+    "MDR1-MDCKII": 34.4,
+    "MLM": 281.0,
+    "LogD": 2.6,
+    "KSOL": 208.0
+  },
+  "O=C1NC(=O)[C@H](CC2=CC=CC(Cl)=C2)C2=CC=CC=C12": {
+    "HLM": 170.0,
+    "MDR1-MDCKII": 8.65,
+    "MLM": 16.7,
+    "LogD": NaN,
+    "KSOL": 291.0
+  },
+  "N#CC1=CC=CC(C2=NC3=C(C(=O)NC4=CC=C5CNCC5=C4)C=C(F)C=C3N2)=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.0,
+    "MLM": 22.0,
+    "LogD": 2.0,
+    "KSOL": 3.0
+  },
+  "O=C(CC1=CN=CC2=CC=CC=C12)N1CCC(C[C@H]2CCCOC2)CC1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 21.2,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 380.0
+  },
+  "CC1=CN=C(CN2C[C@@]3(C(=O)N(C4=CN=CC5=CC=CC=C45)C[C@@H]3C)C3=CC(F)=CC=C3C2=O)C=N1": {
+    "HLM": 137.0,
+    "MDR1-MDCKII": 12.6,
+    "MLM": 237.0,
+    "LogD": 2.0,
+    "KSOL": 374.0
+  },
+  "CC1=NC2=NC=NN2C(SC2=NN=C(C)O2)=C1": {
+    "HLM": 182.0,
+    "MDR1-MDCKII": 0.12,
+    "MLM": 151.0,
+    "LogD": 0.1,
+    "KSOL": 356.0
+  },
+  "CN(C)C[C@H]1C[C@H](NC(=O)C2=CC=C3COB(O)C3=C2)C1": {
+    "HLM": 5.0,
+    "MDR1-MDCKII": 0.9,
+    "MLM": 19.0,
+    "LogD": NaN,
+    "KSOL": NaN
+  },
+  "CC1=CC(CC(=O)N2CCC[C@H](C(N)=O)C2)=CC=N1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.9,
+    "MLM": NaN,
+    "LogD": -0.3,
+    "KSOL": 375.0
+  },
+  "CNC(=O)[C@@H](C)N1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2C)C2=CC(F)=CC=C2C1=O": {
+    "HLM": 11.0,
+    "MDR1-MDCKII": 1.6,
+    "MLM": 60.0,
+    "LogD": 1.6,
+    "KSOL": 387.0
+  },
+  "OCC#C[C@H](NC1=CC=C2CNCC2=C1)C1=CC(Cl)=CC2=C1C=NN2": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.592,
+    "MLM": NaN,
+    "LogD": 0.5,
+    "KSOL": 135.0
+  },
+  "CN(C)C(=O)C1=NOC(CCCN2C=CC3=NC(C4=NOC(C(F)(F)F)=N4)=CC=C32)=C1": {
+    "HLM": 51.3,
+    "MDR1-MDCKII": 20.7,
+    "MLM": 44.1,
+    "LogD": 2.7,
+    "KSOL": 205.0
+  },
+  "CC1=CC(NC(=O)NC2=CNC(=O)C3=CC=CC=C23)=NO1": {
+    "HLM": 9.69,
+    "MDR1-MDCKII": 5.37,
+    "MLM": 119.0,
+    "LogD": 1.6,
+    "KSOL": 65.0
+  },
+  "C=CC(=O)N1CCCC2=C1C=CC=C2N(CC1=CC=CC(Cl)=C1)C(=O)CC1=CN=CC2=CC=CC=C12": {
+    "HLM": 1620.0,
+    "MDR1-MDCKII": 2.14,
+    "MLM": 1460.0,
+    "LogD": 3.3,
+    "KSOL": 44.0
+  },
+  "O=C(NC1=CC=C2OCOC2=C1)NC1=CNC(=O)C2=CC=CC=C12": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 1.8,
+    "MLM": 40.3,
+    "LogD": NaN,
+    "KSOL": 72.0
+  },
+  "CC(C)[C@H](NC1=NC=NC2=C1C=C(C1=CN(CC(N)=O)N=C1)N2)C1=CC=C2OCCOC2=N1": {
+    "HLM": 14.0,
+    "MDR1-MDCKII": 2.46,
+    "MLM": 12.0,
+    "LogD": 2.4,
+    "KSOL": 385.0
+  },
+  "CC1=C(C(=O)NC2=CC(C3=CC=CN=C3)=CC=N2)C=C(C2CC2)N1C": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 13.5,
+    "MLM": 388.0,
+    "LogD": NaN,
+    "KSOL": 176.0
+  },
+  "O=C(/C=C/C1=CC=CC=C1)C(=O)N1CCN(CCC2=CC=CC=C2)CC1": {
+    "HLM": 167.0,
+    "MDR1-MDCKII": 3.0,
+    "MLM": 181.0,
+    "LogD": 3.3,
+    "KSOL": 239.0
+  },
+  "COC1=CC=C(C2=NN=C(SC3=CC(C)=NC4=NC=NN34)O2)C=C1": {
+    "HLM": 141.0,
+    "MDR1-MDCKII": 0.236,
+    "MLM": 586.0,
+    "LogD": 2.4,
+    "KSOL": 7.0
+  },
+  "CN1C(=O)NC2=C(C(=O)NC3=CC=C4CNCC4=C3)C=C(Br)C=C21": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.805,
+    "MLM": 12.5,
+    "LogD": 0.5,
+    "KSOL": 161.0
+  },
+  "C[C@H](F)[C@H]1CCCN1C(=O)CC1=CN=CC2=CC=CC=C12": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 24.6,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 383.0
+  },
+  "NCCC1=CC=C(NC(=O)C2=CC(Cl)=CC(NC(=O)OCC3=CC=CC=C3)=C2)C=C1": {
+    "HLM": 17.5,
+    "MDR1-MDCKII": 0.791,
+    "MLM": NaN,
+    "LogD": 2.9,
+    "KSOL": 88.0
+  },
+  "CNC(=O)C1=CC(Cl)=CC=C1NS(=O)(=O)C1=CC=C(OC2=CC=CC=C2Cl)C=C1": {
+    "HLM": 106.0,
+    "MDR1-MDCKII": 4.91,
+    "MLM": 94.0,
+    "LogD": 2.4,
+    "KSOL": 25.0
+  },
+  "CC1=CC(C2=NOC(C(F)(F)F)=N2)=CC=C1OCCCC1=NC=CN1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 1.89,
+    "MLM": 25.8,
+    "LogD": NaN,
+    "KSOL": 68.0
+  },
+  "CNC(=O)C1=CC(Cl)=C(F)C=C1NS(=O)(=O)C1=CC=C(OC2=CC=CC=C2Cl)C=C1": {
+    "HLM": 71.3,
+    "MDR1-MDCKII": 6.11,
+    "MLM": 45.6,
+    "LogD": NaN,
+    "KSOL": 49.0
+  },
+  "O=C1CC2=C(C=CC=C2C(=O)NC2=CC=C3CNCC3=C2)N1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.924,
+    "MLM": NaN,
+    "LogD": 0.3,
+    "KSOL": 152.0
+  },
+  "NCC1=CC=CC(NC(=O)C[C@H](NC(=O)OCC2=CC=CC=C2)C2=CC=C(OCC3=CC=CC=C3)C(Br)=C2)=C1": {
+    "HLM": 12.4,
+    "MDR1-MDCKII": 0.783,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 21.0
+  },
+  "COC1=CC(CC2=C(C)ON=C2C2=CC=C(F)C=C2)=NC(N2CCNCC2)=N1": {
+    "HLM": 15.0,
+    "MDR1-MDCKII": 4.78,
+    "MLM": 33.0,
+    "LogD": 2.1,
+    "KSOL": 325.0
+  },
+  "CNC(=O)[C@H](NC1=CC=C2CNCC2=C1)C1=CC(Cl)=CC2=C1N=C(C1=CC=CC=C1)N2": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 1.02,
+    "MLM": NaN,
+    "LogD": 1.8,
+    "KSOL": 178.0
+  },
+  "CCC1=C(C2=CC=C(Cl)C=C2)SC(C(=O)NC2=CC=CC(CN)=C2)=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.995,
+    "MLM": NaN,
+    "LogD": 4.3,
+    "KSOL": 7.0
+  },
+  "CC1=C(C(=O)NC2=CC([C@H]3CCOC3)=CC=N2)C=C(C2CC2)N1C": {
+    "HLM": 57.7,
+    "MDR1-MDCKII": 27.2,
+    "MLM": NaN,
+    "LogD": 3.0,
+    "KSOL": NaN
+  },
+  "C[C@H]1CN(C2=CN=CC3=CC=CC=C23)C(=O)[C@@]12CN(CC1=CC=NN1C)C(=O)C1=CC=C(F)C=C12": {
+    "HLM": 131.0,
+    "MDR1-MDCKII": 6.24,
+    "MLM": 353.0,
+    "LogD": 2.0,
+    "KSOL": NaN
+  },
+  "C[C@H]1CN(C2=CN=CC3=CC=CC=C23)C(=O)[C@@]12CN(CC1=CNC=N1)C(=O)C1=CC=C(F)C=C12": {
+    "HLM": 19.0,
+    "MDR1-MDCKII": 1.37,
+    "MLM": 91.0,
+    "LogD": 1.8,
+    "KSOL": 387.0
+  },
+  "C[C@H]1CCN(C(=O)CC2=CN=CC3=CC=CC=C23)[C@@H](C2CCOCC2)C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 20.0,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 377.0
+  },
+  "CNC(=O)CN1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2C)C2=CC(Cl)=CC=C2C1=O": {
+    "HLM": 23.0,
+    "MDR1-MDCKII": 2.7,
+    "MLM": 75.0,
+    "LogD": 1.94,
+    "KSOL": 378.0
+  },
+  "NC1=NN=C2C=CC(C3=CC=C4NC(=O)CNC4=C3)=CN12": {
+    "HLM": 15.6,
+    "MDR1-MDCKII": 1.66,
+    "MLM": 41.8,
+    "LogD": 0.8,
+    "KSOL": 30.0
+  },
+  "CNC(=O)CN1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2CN2N=CN=N2)C2=CC(Cl)=CC=C2C1=O": {
+    "HLM": 44.0,
+    "MDR1-MDCKII": 0.29,
+    "MLM": 46.0,
+    "LogD": 1.1,
+    "KSOL": 387.0
+  },
+  "COC1=CC=CC(Cl)=C1NC(=O)N1CCC[C@H](C(N)=O)C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 2.0,
+    "MLM": NaN,
+    "LogD": 0.3,
+    "KSOL": NaN
+  },
+  "CC(C)[C@H](NC1=NC=NC2=C1C=C(C1=C(C#N)N(C)N=C1)N2)C1=CC=C2OCC(=O)NC2=N1": {
+    "HLM": 70.0,
+    "MDR1-MDCKII": 9.83,
+    "MLM": 145.0,
+    "LogD": 3.7,
+    "KSOL": 29.0
+  },
+  "CNC(=O)CN1C=C(C2=CC3=C(N[C@H](C4=CC=C5CCCS(=O)(=O)C5=C4)C(C)C)N=CN=C3N2)C=N1": {
+    "HLM": 94.0,
+    "MDR1-MDCKII": 0.47,
+    "MLM": 77.0,
+    "LogD": 2.4,
+    "KSOL": 306.0
+  },
+  "CNC(=O)CN1C[C@]2(CCN(C3=CN=CC4=CC=C(OC[C@H](O)CN(C)C)C=C34)C2=O)C2=CC(Cl)=CC=C2C1=O": {
+    "HLM": 8.0,
+    "MDR1-MDCKII": 1.4,
+    "MLM": 2.0,
+    "LogD": 0.19,
+    "KSOL": 383.0
+  },
+  "O=C(CC1=CN=CC2=CC=CC=C12)N1CCC[C@H]1C=CC1=CC=CS1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 15.1,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 361.0
+  },
+  "CNC(=O)C1=CC2=C(N[C@H](C3=CC=C4CCCS(=O)(=O)C4=C3)C(C)C)N=CN=C2N1": {
+    "HLM": 77.0,
+    "MDR1-MDCKII": 0.46,
+    "MLM": 46.0,
+    "LogD": 2.4,
+    "KSOL": 369.0
+  },
+  "C[C@H]1CN(C2=CN=CC3=CC=CC=C23)C(=O)[C@@]12CN(CCN1CCOCC1)C(=O)C1=CC=C(F)C=C12": {
+    "HLM": 96.0,
+    "MDR1-MDCKII": 9.99,
+    "MLM": 165.0,
+    "LogD": 1.4,
+    "KSOL": 392.0
+  },
+  "CC1=CC(C2=NOC(C(F)(F)F)=N2)=CC=C1OCCCC1=NC2=CC=CC=C2N1": {
+    "HLM": 11.0,
+    "MDR1-MDCKII": 0.598,
+    "MLM": 60.8,
+    "LogD": NaN,
+    "KSOL": 5.0
+  },
+  "NCC1=CC=CC(NC(=O)C2=CC(OCC3=CC=CC=C3)=CC=C2CNC(=O)OCC2=CC=CC=C2)=C1": {
+    "HLM": 21.0,
+    "MDR1-MDCKII": 1.75,
+    "MLM": NaN,
+    "LogD": 2.8,
+    "KSOL": 14.0
+  },
+  "O=C(CC1=CN=CC2=CC=CC=C12)N1CCC[C@H](C2=NN=C3C=CC=CN23)C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 1.42,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 393.0
+  },
+  "CC1=CC(C2=NOC(C(F)(F)F)=N2)=CC=C1OCCCC1=NN=NN1C1=CC=CC=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 1.99,
+    "MLM": 34.1,
+    "LogD": NaN,
+    "KSOL": 9.0
+  },
+  "CNC(=O)[C@@H](C)N1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2C)C2=CC(Cl)=CC=C2C1=O": {
+    "HLM": 48.0,
+    "MDR1-MDCKII": 8.52,
+    "MLM": 127.0,
+    "LogD": 2.1,
+    "KSOL": 374.0
+  },
+  "CN1C=C(NC(=O)NCC2=CC=CC=N2)C2=CN=CC=C2C1=O": {
+    "HLM": 4.11,
+    "MDR1-MDCKII": 1.57,
+    "MLM": 2.08,
+    "LogD": 0.3,
+    "KSOL": 378.0
+  },
+  "COC1=CC=C(C(=O)NC2=CC=CC(/C=C3/C(=O)NC(=O)C4=CC=CC=C34)=C2)C=C1": {
+    "HLM": 180.0,
+    "MDR1-MDCKII": 2.33,
+    "MLM": 127.0,
+    "LogD": 3.6,
+    "KSOL": 23.0
+  },
+  "O=C(NCC(F)F)[C@H](NC1=CC=C2CNCC2=C1)C1=CC(Cl)=CC(C2CC2)=C1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 1.55,
+    "MLM": NaN,
+    "LogD": 1.6,
+    "KSOL": 367.0
+  },
+  "CC1=NC(C2=CC=C(OCCCCCN3CCN(C4=CC=NC(N)=C4)C3=O)C=C2)=NO1": {
+    "HLM": 32.8,
+    "MDR1-MDCKII": 1.89,
+    "MLM": 29.5,
+    "LogD": 2.5,
+    "KSOL": 10.0
+  },
+  "C[C@H](C(=O)O)[C@H](NC(=O)C1=NC=NC2=C1C=CN2)C1=CC=C(Br)C=C1": {
+    "HLM": 5.0,
+    "MDR1-MDCKII": 1.4,
+    "MLM": 4.0,
+    "LogD": 0.5,
+    "KSOL": 386.0
+  },
+  "O=C(NCC(F)F)[C@H](NC1=CC=C2CNCC2=C1)C1=CC(Br)=CC2=C1NC=N2": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 0.5,
+    "MLM": NaN,
+    "LogD": 0.4,
+    "KSOL": NaN
+  },
+  "CNC(=O)CN1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2CNC2=CN=CS2)C2=CC(Cl)=CC=C2C1=O": {
+    "HLM": 39.0,
+    "MDR1-MDCKII": 0.6,
+    "MLM": 77.0,
+    "LogD": 1.8,
+    "KSOL": 397.0
+  },
+  "COC1=CC=C([C@H](CC2=NN=NN2)NC(=O)C2=NC=NC3=C2C=CN3)C=C1": {
+    "HLM": 5.0,
+    "MDR1-MDCKII": 1.39,
+    "MLM": 0.0,
+    "LogD": -0.1,
+    "KSOL": 395.0
+  },
+  "CN(C)C(=O)C1=NOC(CCCOC2=CC=CC(F)=C2)=C1": {
+    "HLM": 46.6,
+    "MDR1-MDCKII": 34.8,
+    "MLM": 339.0,
+    "LogD": 2.7,
+    "KSOL": 356.0
+  },
+  "CNC(=O)CN1C[C@@]2(C(=O)N(C3=CN=CC4=CC=CC=C34)C[C@@H]2CS(=O)(=O)NC)C2=CC(Cl)=CC=C2C1=O": {
+    "HLM": 83.0,
+    "MDR1-MDCKII": 0.142,
+    "MLM": 69.0,
+    "LogD": 1.3,
+    "KSOL": NaN
+  },
+  "CC1=CC=C(C2=NN=C(SC3=CC(C4=CC=CC=C4)=NC4=NC=NN34)N2C)C=C1": {
+    "HLM": 238.0,
+    "MDR1-MDCKII": 0.00929,
+    "MLM": 120.0,
+    "LogD": 3.0,
+    "KSOL": 7.0
+  },
+  "C[C@H]1CN(C2=CN=CC3=CC=CC=C23)C(=O)[C@@]12CN(CC1=CC=NN=C1)C(=O)C1=CC=C(F)C=C12": {
+    "HLM": 19.0,
+    "MDR1-MDCKII": 1.0,
+    "MLM": 57.0,
+    "LogD": 1.2,
+    "KSOL": NaN
+  },
+  "O=C(NCC(F)(F)F)C1=CC(Cl)=C(F)C=C1NS(=O)(=O)C1=CC=C(OC2=CC=CC=C2Cl)C=C1": {
+    "HLM": 70.0,
+    "MDR1-MDCKII": 2.4,
+    "MLM": NaN,
+    "LogD": NaN,
+    "KSOL": 14.0
+  },
+  "NCC1=CC=CC(NC(=O)CN(C(=O)OCC2=CC=CC=C2)C2=CC=C(OCC3=CC=CC=C3)C=C2)=C1": {
+    "HLM": 11.0,
+    "MDR1-MDCKII": 0.899,
+    "MLM": NaN,
+    "LogD": 2.9,
+    "KSOL": 56.0
+  },
+  "O=C1CC2=C(C=C(F)C=C2C(=O)NC2=CC=C3CNCC3=C2)N1": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 2.9,
+    "MLM": NaN,
+    "LogD": -0.2,
+    "KSOL": 368.0
+  },
+  "CC(C)[C@H](NC1=NC=NC2=C1C=C(C1=CN(CC(N)=O)N=C1)N2)C1=CC=C2OCCOC2=C1": {
+    "HLM": 99.0,
+    "MDR1-MDCKII": 0.9,
+    "MLM": 41.0,
+    "LogD": 0.9,
+    "KSOL": 345.0
+  },
+  "CC(C)[C@H](NC1=NC=NC2=C1C(C(N)=O)=CN2)C1=CC=C2OCCOC2=C1": {
+    "HLM": 143.0,
+    "MDR1-MDCKII": 11.1,
+    "MLM": 142.0,
+    "LogD": 3.2,
+    "KSOL": 375.0
+  },
+  "O=C(NC1=CC=C2CNCC2=C1)C1=CC(Br)=CC2=C1C=CN2": {
+    "HLM": NaN,
+    "MDR1-MDCKII": 3.85,
+    "MLM": 34.3,
+    "LogD": NaN,
+    "KSOL": NaN
+  }
+}

@@ -104,8 +104,8 @@ def get_model(model_name, attn_implementation="flash_attention_2"):
 
     return model
 
-def get_dataset(params=["MLM", "HLM", "KSOL", "LogD", "MDR1-MDCKII"], subset_train=None, subset_valid=None, subset_test=None):
-    dataset = load_polaris_dataset(params=params)
+def get_dataset(params=["MLM", "HLM", "KSOL", "LogD", "MDR1-MDCKII"], subset_train=None, subset_valid=None, subset_test=None, rewrite=False):
+    dataset = load_polaris_dataset(params=params, rewrite=rewrite)
 
     print(f"Train set size: {len(dataset['train'])}")
     print(f"Test set size: {len(dataset['test'])}")
@@ -245,7 +245,7 @@ def main():
     training_args_i = Munch.fromDict({"chat_template": "{% if not add_generation_prompt is defined %}{% set add_generation_prompt = false %}{% endif %}{% set ns = namespace(is_first=false, is_tool=false, is_output_first=true, system_prompt='') %}{%- for message in messages %}{%- if message['role'] == 'system' %}{% set ns.system_prompt = message['content'] %}{%- endif %}{%- endfor %}{{bos_token}}{{ns.system_prompt}}{%- for message in messages %}{%- if message['role'] == 'user' %}{%- set ns.is_tool = false -%}{{'<｜User｜>' + message['content']}}{%- endif %}{%- if message['role'] == 'assistant' and message['content'] is none %}{%- set ns.is_tool = false -%}{%- for tool in message['tool_calls']%}{%- if not ns.is_first %}{{'<｜Assistant｜><｜tool▁calls▁begin｜><｜tool▁call▁begin｜>' + tool['type'] + '<｜tool▁sep｜>' + tool['function']['name'] + '\\n' + '```json' + '\\n' + tool['function']['arguments'] + '\\n' + '```' + '<｜tool▁call▁end｜>'}}{%- set ns.is_first = true -%}{%- else %}{{'\\n' + '<｜tool▁call▁begin｜>' + tool['type'] + '<｜tool▁sep｜>' + tool['function']['name'] + '\\n' + '```json' + '\\n' + tool['function']['arguments'] + '\\n' + '```' + '<｜tool▁call▁end｜>'}}{{'<｜tool▁calls▁end｜><｜end▁of▁sentence｜>'}}{%- endif %}{%- endfor %}{%- endif %}{%- if message['role'] == 'assistant' and message['content'] is not none %}{%- if ns.is_tool %}{{'<｜tool▁outputs▁end｜>' + message['content'] + '<｜end▁of▁sentence｜>'}}{%- set ns.is_tool = false -%}{%- else %}{% set content = message['content'] %}{{'<｜Assistant｜>' + content + '<｜end▁of▁sentence｜>'}}{%- endif %}{%- endif %}{%- if message['role'] == 'tool' %}{%- set ns.is_tool = true -%}{%- if ns.is_output_first %}{{'<｜tool▁outputs▁begin｜><｜tool▁output▁begin｜>' + message['content'] + '<｜tool▁output▁end｜>'}}{%- set ns.is_output_first = false %}{%- else %}{{'\\n<｜tool▁output▁begin｜>' + message['content'] + '<｜tool▁output▁end｜>'}}{%- endif %}{%- endif %}{%- endfor -%}{% if ns.is_tool %}{{'<｜tool▁outputs▁end｜>'}}{% endif %}{% if add_generation_prompt and not ns.is_tool %}{{'<｜Assistant｜>'}}{% endif %}"})
     
     tokenizer = get_tokenizer(model_args_i, training_args_i)
-    model_args = ModelConfig(model_name_or_path=MODEL_NAME, use_peft=True, load_in_8bit=True)
+    model_args = ModelConfig(model_name_or_path=MODEL_NAME, use_peft=True, load_in_8bit=True) # TODO: if run it in a serverless sometimes loading of huggingface weights throws an error
     # TODO: we now use default lora setting, how do we choose the best configuration 
     # lora_r=16, lora_alpha=32, lora_dropout=0.05, lora_target_modules=None, lora_modules_to_save=None, lora_task_type='CAUSAL_LM', use_rslora=False, load_in_8bit=False, load_in_4bit=False, bnb_4bit_quant_type='nf4', use_bnb_nested_quant=False
 
@@ -275,7 +275,7 @@ def main():
     # for name, module in model.model.named_modules():
     #     if "attn" in name.lower() or "attention" in name.lower():
     #         print(name, "->", module.__class__)
-    dataset = get_dataset(params=["LogD"], subset_train=50) # TODO: change to default TODO: subset None 50 is 1/4 of the LogD dataset (200)
+    dataset = get_dataset(params=["LogD"], rewrite=False, subset_train=50) # TODO: change to default TODO: subset None 50 is 1/4 of the LogD dataset (200)
     print(len(dataset["train"]), len(dataset["validation"]), len(dataset["test"]))
 
     script_args = GRPOScriptArguments()
@@ -285,9 +285,9 @@ def main():
     training_args = TrainingArguments(
         output_dir=f"{os.environ.get('AIP_MODEL_DIR', './outputs/')}{now:%Y-%m-%d}/{now:%H-%M-%S}", #"./output",
         logging_dir="./logs/wandb/",
-        num_train_epochs=4,             # Total number of training epochs
+        num_train_epochs=10,             # Total number of training epochs
         per_device_train_batch_size=16,  # Batch size per device during training
-        per_device_eval_batch_size=16,   # Batch size for evaluation TODO: why it says this   File "/home/alisavin/AgenticADMET/train.py", line 534, in <module>
+        per_device_eval_batch_size=32,   # Batch size for evaluation TODO: why it says this   File "/home/alisavin/AgenticADMET/train.py", line 534, in <module>
 #     main()
 #   File "/home/alisavin/AgenticADMET/train.py", line 519, in main
 #     grpo_trainer = GRPOTrainer2(
@@ -308,7 +308,7 @@ def main():
         learning_rate=1e-6,            # Initial learning rate for AdamW optimizer
         warmup_ratio=0.1,              # Linear warmup over warmup_ratio fraction of training steps
         weight_decay=0.01,             # Apply weight decay to all layers except bias and LayerNorm weights
-        logging_steps=1,              # Log every X updates steps
+        logging_steps=10,              # Log every X updates steps
         logging_strategy="steps",
         logging_first_step=True,
         evaluation_strategy="epoch",    # Evaluate every `eval_steps`
@@ -368,7 +368,7 @@ def main():
         # REMOVED model_init_kwargs here 
         # We are passing the instantiated 'model' object, so GRPOTrainer doesn't need model_init_kwargs
         },
-        num_generations=8, #TODO: 16
+        num_generations=16, #TODO: 16
         use_vllm=True, #TODO: use True
         vllm_device="cuda:0",
         vllm_gpu_memory_utilization=0.25, # TODO: 0.25 0.7
@@ -384,7 +384,7 @@ def main():
 
     # # TODO: does it help
     # peft_config = get_peft_config(model_args)
-    # peft_config.label_names = ["prompt", "solution", "property"]
+    # peft_config.label_names = ["prompt", "solution", "property", "smiles"]
 
     grpo_trainer = GRPOTrainer2(
         model=model,                      # Our initialized Qwen model
@@ -447,3 +447,8 @@ if __name__ == "__main__":
 # Lipinsky's rules define conditions under witch the molecule has the optimal absorbtion
 
 # TODO: save generations
+
+#TODO: ensure lora checkpoint is loaded
+
+#TODO: check how "equations is deprecated, as it handled by the parser now" is thrown
+#TODO: current prompt does not produce answer, but consistently puts final result in the last sentence inside \\boxed{}
