@@ -30,7 +30,8 @@ from transformers import AutoTokenizer, PreTrainedTokenizer
 from trl import ModelConfig, get_peft_config
 import wandb
 from datetime import datetime
-
+import argparse
+from peft import PeftModel, prepare_model_for_kbit_training
 
 DEFAULT_CHAT_TEMPLATE = "{% for message in messages %}\n{% if message['role'] == 'user' %}\n{{ '<|user|>\n' + message['content'] + eos_token }}\n{% elif message['role'] == 'system' %}\n{{ '<|system|>\n' + message['content'] + eos_token }}\n{% elif message['role'] == 'assistant' %}\n{{ '<|assistant|>\n'  + message['content'] + eos_token }}\n{% endif %}\n{% if loop.last and add_generation_prompt %}\n{{ '<|assistant|>' }}\n{% endif %}\n{% endfor %}"
 
@@ -212,6 +213,20 @@ def print_trainable_parameters(model):
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Train your model.")
+    parser.add_argument(
+        '--resume-from-checkpoint',
+        type=str,
+        default=None,
+        help='Path to checkpoint to resume training from (if any).'
+    )
+    args = parser.parse_args()
+    # Prepare keyword arguments for the trainer.
+    trainer_kwargs = {}
+    if args.resume_from_checkpoint is not None:
+        trainer_kwargs['resume_from_checkpoint'] = args.resume_from_checkpoint
+
+    # "./outputs/2025-02-26/20-13-13"
     # MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
     MODEL_NAME = "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
     # MODEL_NAME = "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B" #DeepSeek-R1-Distill-Qwen-1.5B-GRPO
@@ -269,13 +284,15 @@ def main():
 
     # model = get_model(MODEL_NAME, attn_implementation="flash_attention_2") #TODO: change to "flash_attention_2"
     model = get_model(MODEL_NAME, attn_implementation="flash_attention_2") #TODO: change to "flash_attention_2"
+
+
     print_trainable_parameters(model)
     # print("Model attention implementation: ", model.model.text_model._attn_implementation)
     print("Attention implementation:", model.config._attn_implementation)
     # for name, module in model.model.named_modules():
     #     if "attn" in name.lower() or "attention" in name.lower():
     #         print(name, "->", module.__class__)
-    dataset = get_dataset(params=["LogD"], rewrite=False, subset_train=50) # TODO: change to default TODO: subset None 50 is 1/4 of the LogD dataset (200)
+    dataset = get_dataset(params=["LogD"], rewrite=True, subset_train=50) # TODO: change to default TODO: subset None 50 is 1/4 of the LogD dataset (200)
     print(len(dataset["train"]), len(dataset["validation"]), len(dataset["test"]))
 
     script_args = GRPOScriptArguments()
@@ -285,9 +302,9 @@ def main():
     training_args = TrainingArguments(
         output_dir=f"{os.environ.get('AIP_MODEL_DIR', './outputs/')}{now:%Y-%m-%d}/{now:%H-%M-%S}", #"./output",
         logging_dir="./logs/wandb/",
-        num_train_epochs=5,             # Total number of training epochs
+        num_train_epochs=10,             # Total number of training epochs
         per_device_train_batch_size=16,  # Batch size per device during training
-        per_device_eval_batch_size=32,   # Batch size for evaluation TODO: why it says this   File "/home/alisavin/AgenticADMET/train.py", line 534, in <module>
+        per_device_eval_batch_size=16,   # Batch size for evaluation TODO: why it says this   File "/home/alisavin/AgenticADMET/train.py", line 534, in <module>
 #     main()
 #   File "/home/alisavin/AgenticADMET/train.py", line 519, in main
 #     grpo_trainer = GRPOTrainer2(
@@ -308,7 +325,7 @@ def main():
         learning_rate=1e-6,            # Initial learning rate for AdamW optimizer
         warmup_ratio=0.1,              # Linear warmup over warmup_ratio fraction of training steps
         weight_decay=0.01,             # Apply weight decay to all layers except bias and LayerNorm weights
-        logging_steps=10,              # Log every X updates steps
+        logging_steps=1,              # Log every X updates steps
         logging_strategy="steps",
         logging_first_step=True,
         evaluation_strategy="epoch",    # Evaluate every `eval_steps`
@@ -334,6 +351,7 @@ def main():
         lr_scheduler_type="cosine_with_min_lr",
         lr_scheduler_kwargs={"min_lr_rate": 0.1},
         max_steps=-1, #TODO: change to -1
+        # **trainer_kwargs
         # eval_steps=10 #TODO: change to -1
         # - 1.0
         # - 1.0
@@ -368,7 +386,7 @@ def main():
         # REMOVED model_init_kwargs here 
         # We are passing the instantiated 'model' object, so GRPOTrainer doesn't need model_init_kwargs
         },
-        num_generations=16, #TODO: 16
+        num_generations=8, #TODO: 16
         use_vllm=True, #TODO: use True
         vllm_device="cuda:0",
         vllm_gpu_memory_utilization=0.25, # TODO: 0.25 0.7
@@ -399,7 +417,7 @@ def main():
     print_trainable_parameters(grpo_trainer.model)
 
     # Start the GRPO Training Loop
-    train_result = grpo_trainer.train()
+    train_result = grpo_trainer.train(**trainer_kwargs)
 
     #TODO: LoRa isage produces error
     # pip install --upgrade --no-cache-dir --no-deps unsloth 
@@ -453,3 +471,17 @@ if __name__ == "__main__":
 #TODO: check how "equations is deprecated, as it handled by the parser now" is thrown
 #TODO: current prompt does not produce answer, but consistently puts final result in the last sentence inside \\boxed{}
 #TODO: track generations at training 
+# {Use computational tools like Dragon, LogE, ; ZINDAQ to calculate LogD using the given SMILES input.
+# TODO: openr1 training recepy https://github.com/huggingface/open-r1/blob/main/src/open_r1/grpo.py
+#TODO: log mae, check if it is the same as in a contest
+#Whats with the resonings steps, do they grow, why not
+
+#TODO: report median
+
+
+# /home/alisavin/AgenticADMET/openr1/lib/python3.11/site-packages/transformers/trainer.py:3423: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+#   torch.load(os.path.join(checkpoint, OPTIMIZER_NAME), map_location=map_location)
+# Warning: The following arguments do not match the ones in the `trainer_state.json` within the checkpoint directory:
+#         logging_steps: 1 (from args) != 10 (from trainer_state.json)
+#   0%|                                                                                                              | 0/60 [00:00<?, ?it/s]/home/alisavin/AgenticADMET/openr1/lib/python3.11/site-packages/transformers/trainer.py:3119: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+#   checkpoint_rng_state = torch.load(rng_file)

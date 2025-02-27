@@ -72,7 +72,7 @@ def accuracy_reward(completions, ground_truth=None, log_normalize=False, **kwarg
                     gold_val = np.log10(gold_val+1)
                 reward = np.mean(np.abs(gold_val - answer_val))
                 reward = np.clip(1-(1/6)*reward, 0, 1)
-                # print("parsed correctly", answer_val, gold_val)
+                print("parsed correctly", answer_val, gold_val)
             except Exception as e:
                 # If direct numeric eval fails 
                 # (e.g., the expression is more complicated),

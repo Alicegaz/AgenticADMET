@@ -12,7 +12,9 @@ from pathlib import Path
 #     "<think> reasoning process here </think><answer> answer here </answer>"
 # )
 
-SYSTEM_PROMPT = "You are an experienced Chemist that provides well-reasoned and detailed responses and excells at predicting ADME properties of molecules without any tools. You first think about the reasoning process as an internal monologue and then provide the user with the answer. Respond in the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>. Inside <answer>\n...\n</answer>, when you finished thinking and certian that it is the most accurate answer you can give, put the final answer in the following format: \\boxed{RESULT}, where RESULT is just the final number in float or expression that solves the problem."
+#  without any tools
+
+SYSTEM_PROMPT = "You are an experienced Chemist that provides well-reasoned and detailed responses and excells at predicting ADME properties of molecules. You first think about the reasoning process as an internal monologue and then provide the user with the answer. Respond in the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>. Inside <answer>\n...\n</answer>, when you finished thinking and certian that it is the most accurate answer you can give, put the final answer in the following format: \\boxed{RESULT}, where RESULT is just the final number in float or expression that solves the problem."
 
 # Function to structure the training data
 def make_conversation(example):
