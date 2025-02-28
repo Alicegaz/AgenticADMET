@@ -4,6 +4,8 @@ channels:
   - defaults
 dependencies:
   - python=3.11
+  - dvc-gs
+  - funcy==1.17   # fix for DVC
   - numpy
   - pandas
   - polaris
