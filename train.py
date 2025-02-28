@@ -292,7 +292,8 @@ def main():
     # for name, module in model.model.named_modules():
     #     if "attn" in name.lower() or "attention" in name.lower():
     #         print(name, "->", module.__class__)
-    dataset = get_dataset(params=["LogD"], rewrite=True, subset_train=50) # TODO: change to default TODO: subset None 50 is 1/4 of the LogD dataset (200)
+    # dataset = get_dataset(params=["LogD"], rewrite=True, subset_train=50) # TODO: change to default TODO: subset None 50 is 1/4 of the LogD dataset (200)
+    dataset = get_dataset(params=["LogD"], rewrite=True) # TODO: change to default TODO: subset None 50 is 1/4 of the LogD dataset (200)
     print(len(dataset["train"]), len(dataset["validation"]), len(dataset["test"]))
 
     script_args = GRPOScriptArguments()
@@ -303,8 +304,8 @@ def main():
         output_dir=f"{os.environ.get('AIP_MODEL_DIR', './outputs/')}{now:%Y-%m-%d}/{now:%H-%M-%S}", #"./output",
         logging_dir="./logs/wandb/",
         num_train_epochs=10,             # Total number of training epochs
-        per_device_train_batch_size=16,  # Batch size per device during training
-        per_device_eval_batch_size=16,   # Batch size for evaluation TODO: why it says this   File "/home/alisavin/AgenticADMET/train.py", line 534, in <module>
+        per_device_train_batch_size=8,  # Batch size per device during training TODO: change to 16
+        per_device_eval_batch_size=8,   # Batch size for evaluation TODO: why it says this   File "/home/alisavin/AgenticADMET/train.py", line 534, in <module>
 #     main()
 #   File "/home/alisavin/AgenticADMET/train.py", line 519, in main
 #     grpo_trainer = GRPOTrainer2(
@@ -321,11 +322,12 @@ def main():
 #   File "/home/alisavin/AgenticADMET/openr1/lib/python3.11/site-packages/trl/trainer/grpo_trainer.py", line 346, in __init__
 #     raise ValueError(
 # ValueError: The global train batch size (1 x 8) must be evenly divisible by the number of generations per prompt (16). Given the current train batch size, the valid values for the number of generations are: [2, 4, 8].
-        gradient_accumulation_steps=4,  # Accumulate gradients to simulate larger batch size
-        learning_rate=1e-6,            # Initial learning rate for AdamW optimizer
+        gradient_accumulation_steps=16, #4,  # Accumulate gradients to simulate larger batch size
+        # learning_rate=1e-6,            # TODO: Initial learning rate for AdamW optimizer
+        learning_rate=2.0e-05, # took tuners https://github.com/Mryangkaitong/deepseek-r1-gsm8k/blob/main/recipes/DeepSeek-R1-Distill-Qwen-7B/grpo/config_demo.yaml
         warmup_ratio=0.1,              # Linear warmup over warmup_ratio fraction of training steps
         weight_decay=0.01,             # Apply weight decay to all layers except bias and LayerNorm weights
-        logging_steps=1,              # Log every X updates steps
+        logging_steps=6,              # Log every X updates steps TODO: change based on number of steps
         logging_strategy="steps",
         logging_first_step=True,
         evaluation_strategy="epoch",    # Evaluate every `eval_steps`
@@ -348,8 +350,9 @@ def main():
         # # TODO
         # # log_completions=True,
         # # log_level="info",
-        lr_scheduler_type="cosine_with_min_lr",
-        lr_scheduler_kwargs={"min_lr_rate": 0.1},
+        # lr_scheduler_type="cosine_with_min_lr", #TODO: before trained with cosine with min lr
+        lr_scheduler_type="cosine", #TODO: tuners https://github.com/Mryangkaitong/deepseek-r1-gsm8k/blob/5dcf23a94b17dd970a142183c6bdbcadf1a75f47/recipes/DeepSeek-R1-Distill-Qwen-7B/grpo/config_demo.yaml#L39
+        # lr_scheduler_kwargs={"min_lr_rate": 0.1}, #TODO: before used
         max_steps=-1, #TODO: change to -1
         # **trainer_kwargs
         # eval_steps=10 #TODO: change to -1
@@ -389,11 +392,11 @@ def main():
         num_generations=8, #TODO: 16
         use_vllm=True, #TODO: use True
         vllm_device="cuda:0",
-        vllm_gpu_memory_utilization=0.25, # TODO: 0.25 0.7
-        vllm_max_model_len=2048, #TODO: 2048
-        max_prompt_length=800, #TODO: 800+
+        vllm_gpu_memory_utilization=0.35, # TODO: 0.25 0.7
+        vllm_max_model_len=7029+800+1024, #TODO: 2048
+        max_prompt_length=7029+800, #3024, #TODO: 800+
         max_completion_length=1024, #TODO: 1024+ (better 2048/4048 and more)
-        temperature=0.7,
+        temperature=0.01, # TODO: temperature for math task
         reward_weights=[1.0, 1.0, 0.4, 0.4]
         )
 
@@ -412,7 +415,8 @@ def main():
         eval_dataset=dataset['validation'],    # Evaluation dataset
         # callbacks=callbacks              # List of callbacks
         processing_class=tokenizer, #TODO: check callback from config
-        peft_config=get_peft_config(model_args) #TODO: check # label_names
+        peft_config=get_peft_config(model_args), #TODO: check # label_names
+        # compute_metrics=
     )
     print_trainable_parameters(grpo_trainer.model)
 
