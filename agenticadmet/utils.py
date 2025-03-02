@@ -75,3 +75,7 @@ def standardize(smiles: str) -> Optional[str]:
         return None
     
     return smiles
+
+
+def standardize_cxsmiles(smiles):
+    return Chem.MolToCXSmiles(Chem.MolFromSmiles(smiles))

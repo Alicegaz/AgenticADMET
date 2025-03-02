@@ -1,0 +1,6 @@
+outs:
+- md5: 2b7776d4063c1c408cdd808a1ba951cc.dir
+  size: 230674
+  nfiles: 3
+  hash: md5
+  path: preproc
