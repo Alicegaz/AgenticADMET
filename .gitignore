@@ -4,6 +4,7 @@ output
 outputs
 nohup.out
 mlruns/
+wandb/
 *.DS_Store
 
 # Byte-compiled / optimized / DLL files

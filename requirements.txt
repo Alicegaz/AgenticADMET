@@ -10,3 +10,4 @@ chemprop==2.1.1
 rdkit==2024.9.5
 chembl_structure_pipeline==1.2.2
 hyperopt
+wandb>=0.12.10
