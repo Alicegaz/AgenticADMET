@@ -11,3 +11,7 @@ rdkit==2024.9.5
 chembl_structure_pipeline==1.2.2
 hyperopt
 wandb>=0.12.10
+lightning==2.5
+torch==2.6
+transformers==4.49.0
+tokenizers==0.21.0
