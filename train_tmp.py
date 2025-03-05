@@ -319,8 +319,7 @@ class GRPOTrainer2(GRPOTrainer):
             self._metrics[f"rewards/MAE"].append(mae_not_reward.item())
 
         # Apply weights to each reward function's output and sum
-        rewards = (rewards_per_func * self.reward_weights[:rewards_len].to(device).unsqueeze(0)).sum(dim=1)
-        # print(self.reward_weights.to(device).unsqueeze(0), rewards, rewards.mean().item(), rewards_per_func, rewards_per_func.mean(0))
+        rewards = (rewards_per_func * self.reward_weights.to(device).unsqueeze(0)).sum(dim=1)
 
         # Compute grouped-wise rewards
         mean_grouped_rewards = rewards.view(-1, self.num_generations).mean(dim=1)
@@ -483,12 +482,12 @@ def main():
     parser.add_argument(
         "--per-device-train-batch-size",
         type=int,
-        default=8
+        default=2
     )
     parser.add_argument(
         "--per-device-eval-batch-size",
         type=int,
-        default=8
+        default=2
     )
     parser.add_argument(
         "--gradient-accumulation-steps",
@@ -503,7 +502,7 @@ def main():
     parser.add_argument(
         "--eval-steps",
         type=int,
-        default=13 # 6 is all the set, when we limit set to 100 samples
+        default=3 # 6 is all the set, when we limit set to 100 samples
     )
     parser.add_argument(
         "--rules-prompt",
@@ -555,7 +554,7 @@ def main():
     parser.add_argument(
         "--num-generations",
         type=int,
-        default=4,
+        default=2,
         help="Number of generations."
     )
     parser.add_argument(
@@ -566,23 +565,23 @@ def main():
     parser.add_argument(
         "--vllm-max-model-len",
         type=int,
-        default=6851+900+82+2000
+        default=None
     )
     parser.add_argument(
         "--max-prompt-length",
         type=int,
-        default=6851+82+900
+        default=1000
     )
     parser.add_argument(
         "--reward-weights",
         type=str,
-        default=None,
+        default="1,1",
         help="Comma-separated list od reward function weights"
     )
     parser.add_argument(
         "--max-completion-length",
         type=int,
-        default=2000, #1200,
+        default=512, #1200,
         help="Max len of completion"
     )
     parser.add_argument(
@@ -609,13 +608,13 @@ def main():
     parser.add_argument(
         "--subset-train",
         type=int,
-        default=None,
+        default=10,
         help="If you want to run on a subset of a train set."
     )
     parser.add_argument(
         "--subset-valid",
         type=int,
-        default=None,
+        default=10,
         help="If you want to run on a subset of the validation set."
     )
     parser.add_argument(
@@ -637,7 +636,7 @@ def main():
     # MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
     MODEL_NAME = args.model_name # "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
     # MODEL_NAME = "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B" #DeepSeek-R1-Distill-Qwen-1.5B-GRPO
-    # MODEL_NAME = "nickypro/tinyllama-15M"
+    MODEL_NAME = "Jiqing/tiny-random-qwen2"
 
     # https://github.com/huggingface/open-r1/blob/main/recipes/DeepSeek-R1-Distill-Qwen-1.5B/grpo/config_demo.yaml
     # chat_template: "{% if not add_generation_prompt is defined %}{% set add_generation_prompt = false %}{% endif %}{% set ns = namespace(is_first=false, is_tool=false, is_output_first=true, system_prompt='') %}{%- for message in messages %}{%- if message['role'] == 'system' %}{% set ns.system_prompt = message['content'] %}{%- endif %}{%- endfor %}{{bos_token}}{{ns.system_prompt}}{%- for message in messages %}{%- if message['role'] == 'user' %}{%- set ns.is_tool = false -%}{{'<｜User｜>' + message['content']}}{%- endif %}{%- if message['role'] == 'assistant' and message['content'] is none %}{%- set ns.is_tool = false -%}{%- for tool in message['tool_calls']%}{%- if not ns.is_first %}{{'<｜Assistant｜><｜tool▁calls▁begin｜><｜tool▁call▁begin｜>' + tool['type'] + '<｜tool▁sep｜>' + tool['function']['name'] + '\\n' + '```json' + '\\n' + tool['function']['arguments'] + '\\n' + '```' + '<｜tool▁call▁end｜>'}}{%- set ns.is_first = true -%}{%- else %}{{'\\n' + '<｜tool▁call▁begin｜>' + tool['type'] + '<｜tool▁sep｜>' + tool['function']['name'] + '\\n' + '```json' + '\\n' + tool['function']['arguments'] + '\\n' + '```' + '<｜tool▁call▁end｜>'}}{{'<｜tool▁calls▁end｜><｜end▁of▁sentence｜>'}}{%- endif %}{%- endfor %}{%- endif %}{%- if message['role'] == 'assistant' and message['content'] is not none %}{%- if ns.is_tool %}{{'<｜tool▁outputs▁end｜>' + message['content'] + '<｜end▁of▁sentence｜>'}}{%- set ns.is_tool = false -%}{%- else %}{% set content = message['content'] %}{{'<｜Assistant｜>' + content + '<｜end▁of▁sentence｜>'}}{%- endif %}{%- endif %}{%- if message['role'] == 'tool' %}{%- set ns.is_tool = true -%}{%- if ns.is_output_first %}{{'<｜tool▁outputs▁begin｜><｜tool▁output▁begin｜>' + message['content'] + '<｜tool▁output▁end｜>'}}{%- set ns.is_output_first = false %}{%- else %}{{'\\n<｜tool▁output▁begin｜>' + message['content'] + '<｜tool▁output▁end｜>'}}{%- endif %}{%- endif %}{%- endfor -%}{% if ns.is_tool %}{{'<｜tool▁outputs▁end｜>'}}{% endif %}{% if add_generation_prompt and not ns.is_tool %}{{'<｜Assistant｜>'}}{% endif %}"
@@ -648,7 +647,7 @@ def main():
 
     #TODO: reward function range
 
-    wandb.init(project="admet-challenge")
+    wandb.init(project="admet-challenge", name="test")
     wandb.config.update({"log_model": False})
     now = datetime.now()
 
@@ -684,11 +683,8 @@ def main():
     #TODO: falsh_attention no speedup
     model_cuda = "cuda:0"
     model = get_model(MODEL_NAME, attn_implementation="flash_attention_2", device=model_cuda) #TODO: change to "flash_attention_2"
-    
-    if args.reward_weights is not None:
-        reward_weights = [float(l) for l in args.reward_weights.split(",")]
-    else:
-        reward_weights = None
+
+    reward_weights = [float(l) for l in args.reward_weights.split(",")]
 
     print_trainable_parameters(model)
     # print("Model attention implementation: ", model.model.text_model._attn_implementation)
@@ -701,12 +697,12 @@ def main():
     seed = 42
     dataset = get_dataset(params=["LogD"], rules_prompt_name=args.rules_prompt, rewrite=False, properties=True, seed=seed, subset_train=args.subset_train, subset_valid=args.subset_valid) # TODO: change to default TODO: subset None 50 is 1/4 of the LogD dataset (200)
     print(len(dataset["train"]), len(dataset["validation"]), len(dataset["test"]))
-    
+
     text_table = wandb.Table(columns=["smiles_hash", "steps", "reward", "mae_median", "mae", "completion", "system_input", "user_prompt", "answer_parsed", "asnwer_val", "gold_val"])
     text_table_current = wandb.Table(columns=["smiles_hash", "steps", "reward", "mae_median", "mae", "completion", "system_input", "user_prompt", "answer_parsed", "asnwer_val", "gold_val"])
     reward_funcs_names = args.reward_funcs.split(",")
     script_args = GRPOScriptArguments(reward_funcs=reward_funcs_names)
-    reward_functions = get_reward_functions(script_args, mae_thr=None, table=text_table, text_table_current=text_table_current) #TODO: check trl they had someshere gpro example and used different rewards including lenght reward
+    reward_functions = get_reward_functions(script_args, mae_thr=0.5, table=text_table, text_table_current=text_table_current) #TODO: check trl they had someshere gpro example and used different rewards including lenght reward
     
     # "dirpath": f"{os.environ.get('AIP_MODEL_DIR', './outputs/')}{now:%Y-%m-%d}/{now:%H-%M-%S}"
     training_args = TrainingArguments(
@@ -725,7 +721,7 @@ def main():
         logging_steps=args.logging_steps,              # Log every X updates steps TODO: change based on number of steps
         logging_strategy="steps",
         logging_first_step=True,
-        evaluation_strategy="epoch",    # Evaluate every `eval_steps`
+        evaluation_strategy="steps",    # Evaluate every `eval_steps`
         save_strategy="epoch",      # Disables regular checkpoints
         save_total_limit=1,      # Makes sure no checkpoints are kept
         load_best_model_at_end=False,  # Disables saving the best model
@@ -764,7 +760,7 @@ def main():
         # We are passing the instantiated 'model' object, so GRPOTrainer doesn't need model_init_kwargs
         },
         num_generations=args.num_generations, #TODO: 16
-        use_vllm=True, #TODO: use True
+        use_vllm=False, #TODO: use True
         vllm_device=args.vllm_device,
         vllm_gpu_memory_utilization=args.vllm_gpu_memory_utilization, # TODO: 0.25 0.7
         vllm_max_model_len=args.vllm_max_model_len, #TODO: 2048
@@ -772,8 +768,7 @@ def main():
         max_completion_length=args.max_completion_length, #TODO: 1024+ (better 2048/4048 and more)
         temperature=args.eval_temperature, # TODO: temperature for math task
         reward_weights=reward_weights,
-        log_completions=False,
-        # ds3_gather_for_generation=False # https://github.com/huggingface/trl/blob/a1c58aa42ae4999f462e83cd36f82de34499e245/trl/trainer/grpo_config.py#L54C9-L54C34
+        log_completions=False
         )
 
     # for l in dataset['train']:
@@ -798,16 +793,8 @@ def main():
     print_trainable_parameters(grpo_trainer.model)
 
     # Start the GRPO Training Loop
-    try:
-        train_result = grpo_trainer.train(**trainer_kwargs)
-        wandb.log({"training_samples" : text_table})
-    except KeyboardInterrupt:
-        print("Training interrupted! Cleaning up...")
-    finally:
-        # This block runs whether training finishes successfully
-        # or a KeyboardInterrupt occurs, or anything except a SIGKILL
-        wandb.log({"training_samples": text_table})
-        wandb.finish()
+    train_result = grpo_trainer.train(**trainer_kwargs)
+    wandb.log({"training_samples" : text_table})
 
     #TODO: LoRa isage produces error
     # pip install --upgrade --no-cache-dir --no-deps unsloth 

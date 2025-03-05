@@ -10,5 +10,11 @@ uv venv openr1 --python 3.11 && source openr1/bin/activate && GIT_LFS_SKIP_SMUDG
 
 ### export your venv
 ```bash
-uv pip freeze > requirements_pre.txt
+uv pip freeze > requirements.txt
+```
+
+### install rust
+```
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
 ```

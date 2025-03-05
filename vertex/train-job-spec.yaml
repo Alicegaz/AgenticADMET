@@ -1,0 +1,43 @@
+workerPoolSpecs:
+  machineSpec:
+    # machineType: a3-highgpu-8g
+    # acceleratorType: NVIDIA_H100_80GB
+    # machineType: a2-ultragpu-8g
+    # acceleratorType: NVIDIA_A100_80GB
+    # machineType: a2-highgpu-8g
+    # acceleratorType: NVIDIA_TESLA_A100
+    # machineType: n1-standard-16
+    # acceleratorType: NVIDIA_TESLA_T4
+    # acceleratorCount: 1
+    # machineType: g2-standard-4
+    # machineType: g2-standard-96
+    machineType: a2-highgpu-2g
+    acceleratorType: NVIDIA_TESLA_A100
+    acceleratorCount: 2
+    # machineType: ct5lp-hightpu-4t
+    # tpuTopology: 2x4
+
+  replicaCount: 1
+  containerSpec:
+    imageUri: us-central1-docker.pkg.dev/bioptic-io/dl/asap-admet:ubuntu22.04-cu12.6.0-py311-pt2.4
+    args:
+      - --lr=1e-4
+      - --vllm_gpu_memory_utilization=0.75
+      - --num-train-epochs=1
+      - --subset-train=5
+      - --subset-valid=5
+      - --dataloader-num-workers=12
+      - --vllm-device=cuda:1
+    env:
+      - name: OUTPUT_DIR
+        value: "/gcs/optic-aidd/research/asap-admet/output"
+      - name: TOKENIZERS_PARALLELISM
+        value: "false"
+      - name: WANDB_API_KEY
+        value: "d4141d96441876e3f43175291fe9e59fa11d4c7d"
+      
+scheduling:
+  timeout: 86400s # 24h (43200s - 12 hours)
+baseOutputDirectory:
+  outputUriPrefix: gs://optic-aidd/research/vertex/outputs
+  # outputUriPrefix: gs://optic-aidd-asia-southeast1/research/vertex/outputs
