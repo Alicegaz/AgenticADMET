@@ -8,7 +8,7 @@ import pandas as pd
 from sklearn.metrics import mean_absolute_error, r2_score
 
 
-TARGET_COLUMNS = ["LogHLM", "LogMLM", "LogKSOL", "LogMDR1-MDCKII"]
+TARGET_COLUMNS = ["LogHLM", "LogMLM", "LogD", "LogKSOL", "LogMDR1-MDCKII"]
 
 
 def mask_nan(y_true, y_pred):
@@ -17,11 +17,8 @@ def mask_nan(y_true, y_pred):
     y_pred = np.array(y_pred)[mask]
     return y_true, y_pred
 
-def eval_admet(
-        preds: dict[str, list],
-        refs: dict[str, list],
-        target_columns: list[str] = TARGET_COLUMNS
-    ) -> Tuple[dict[str, float], np.ndarray]:
+def eval_admet(preds: dict[str, list], refs: dict[str, list], target_columns: list[str] | None = None) \
+    -> Tuple[dict[str, float], np.ndarray]:
     """
     Eval ADMET targets with MAE for pre-log10 transformed targets (LogD) and MALE  (MAE on log10 transformed dataset) on non-transformed data
 
@@ -39,12 +36,19 @@ def eval_admet(
     dict[str, float]
         Returns a dictonary of summary statistics
     """
+    keys = {
+        "MLM",
+        "HLM",
+        "KSOL",
+        "LogD",
+        "MDR1-MDCKII",
+    } if target_columns is None else target_columns
     # will be treated as is
     logscale_endpts = {"LogD"}
 
     collect = defaultdict(dict)
 
-    for k in target_columns:
+    for k in keys:
         if k not in preds.keys() or k not in refs.keys():
             raise ValueError("required key not present")
 
@@ -72,11 +76,11 @@ def eval_admet(
         collect[k]["r2"] = r2
 
     # compute macro average MAE
-    macro_mae = np.mean([collect[k]["mean_absolute_error"] for k in target_columns])
+    macro_mae = np.mean([collect[k]["mean_absolute_error"] for k in keys])
     collect["aggregated"]["macro_mean_absolute_error"] = macro_mae
 
     # compute macro average R2
-    macro_r2 = np.mean([collect[k]["r2"] for k in target_columns])
+    macro_r2 = np.mean([collect[k]["r2"] for k in keys])
     collect["aggregated"]["macro_r2"] = macro_r2
 
     return collect
