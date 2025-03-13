@@ -1,4 +1,3 @@
-from omegaconf import DictConfig
 from typing import Any
 
 from chemprop.nn.metrics import MAE, R2Score, MSE
@@ -7,6 +6,7 @@ from lightning import pytorch as pl
 import torch
 from torch import nn
 from torch import Tensor as T
+from torch.nn import functional as F
 from transformers import PretrainedConfig, RobertaModel
 
 from utils import CheckpointParams, CheckpointDownloader
@@ -14,7 +14,7 @@ from utils import CheckpointParams, CheckpointDownloader
 
 class MLP(nn.Module):
     def __init__(self, input_dim, hidden_dim: int, num_layers: int, output_dim, 
-                 bias_final: bool = True, dropout=0.1):
+                 bias_final: bool = True, dropout=0.0):
         super().__init__()
         fc_block = []
         for i in range(num_layers):
@@ -23,17 +23,16 @@ class MLP(nn.Module):
             layer = nn.Sequential(
                 nn.Linear(input_dim, hidden_dim),
                 nn.ReLU(),
+                nn.Dropout(dropout),
                 # nn.BatchNorm1d(hidden_dim)
             )
             fc_block.append(layer)
         
         self.fc_block = nn.Sequential(*fc_block)
-        self.dropout1 = nn.Dropout(dropout)
         self.classifier = nn.Linear(hidden_dim, output_dim, bias=bias_final)
 
     def forward(self, x):
         x = self.fc_block(x)
-        x = self.dropout1(x)
         x = self.classifier(x)
 
         return x
@@ -45,7 +44,7 @@ class TransformerRegressionModel(pl.LightningModule):
         model_name: str,
         model_params: dict[str, Any],
         weight_decay: float = 0.0,
-        warmup_epochs: int = 30,
+        warmup_epochs: int = 10,
         init_lr: float = 1e-4,
         max_lr: float = 1e-3,
         final_lr: float = 1e-4,
@@ -82,7 +81,7 @@ class TransformerRegressionModel(pl.LightningModule):
             num_layers=model_params['num_layers'],
             output_dim=model_params['output_dim'],
             bias_final=model_params.get('bias_final', False),
-            dropout=model_params.get('dropout', 0.1)
+            dropout=model_params.get('dropout', 0.0)
         )
 
         self.load_checkpoints()
@@ -90,8 +89,15 @@ class TransformerRegressionModel(pl.LightningModule):
     
     def forward(self, input_ids: T, attention_mask: T) -> T:
         outputs = self.roberta.forward(input_ids=input_ids, attention_mask=attention_mask, output_hidden_states=False)
-        cls_output = outputs['last_hidden_state'][:, 0, :]
-        preds = self.predictor(cls_output)
+        embeddings = outputs['last_hidden_state'][:, 1:, :]
+        attention_mask = attention_mask[:, 1:]
+
+        # embeddings = (embeddings * attention_mask.unsqueeze(-1)).sum(1) / attention_mask.sum(-1).unsqueeze(-1)
+        input_mask_expanded = attention_mask.unsqueeze(-1).expand(embeddings.size()).type(torch.bool)
+        embeddings[~input_mask_expanded] = -1e9  # Set padding tokens to large negative value
+        embeddings = F.max_pool1d(embeddings.permute(0, 2, 1), kernel_size=embeddings.size(1)).squeeze(-1)
+
+        preds = self.predictor(embeddings)
 
         return preds
 
@@ -157,22 +163,22 @@ class TransformerRegressionModel(pl.LightningModule):
             weight_decay=self.hparams.weight_decay
         )
 
-        # steps_per_epoch = self.trainer.num_training_batches
-        # warmup_steps = self.hparams.warmup_epochs * steps_per_epoch
-        # cooldown_epochs = self.trainer.max_epochs - self.hparams.warmup_epochs
-        # cooldown_steps = cooldown_epochs * steps_per_epoch
+        steps_per_epoch = self.trainer.num_training_batches
+        warmup_steps = self.hparams.warmup_epochs * steps_per_epoch
+        cooldown_epochs = self.trainer.max_epochs - self.hparams.warmup_epochs
+        cooldown_steps = cooldown_epochs * steps_per_epoch
 
-        # scheduler = build_NoamLike_LRSched(
-        #     optimizer,
-        #     warmup_steps=warmup_steps,
-        #     cooldown_steps=cooldown_steps,
-        #     init_lr=self.hparams.init_lr,
-        #     max_lr=self.hparams.max_lr,
-        #     final_lr=self.hparams.final_lr
-        # )
+        scheduler = build_NoamLike_LRSched(
+            optimizer,
+            warmup_steps=warmup_steps,
+            cooldown_steps=cooldown_steps,
+            init_lr=self.hparams.init_lr,
+            max_lr=self.hparams.max_lr,
+            final_lr=self.hparams.final_lr
+        )
 
-        # return [optimizer], [scheduler]
-        return optimizer
+        return [optimizer], [scheduler]
+        # return optimizer
     
     @staticmethod
     def _get_parameter_names(model, forbidden_layer_types):
