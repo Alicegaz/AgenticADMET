@@ -24,10 +24,6 @@ def validate_dataset(dataset):
         # Extract the 'prompt' field, which contains a list of messages
         messages = sample['prompt']
 
-        # Validate the prompt format:
-        # - It should contain at least two messages
-        # - The first message should be from the 'system' role
-        # - The second message should be from the 'user' role
         if (len(messages) >= 2 and
             messages[0]['role'] == 'system' and
             messages[1]['role'] == 'user'):

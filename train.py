@@ -1,9 +1,7 @@
-# Import necessary libraries
 import os
 from dataclasses import dataclass, field
 from typing import Optional
 
-# Import PyTorch and Hugging Face Transformers
 import torch
 from transformers import (
     AutoModelForCausalLM,
@@ -13,20 +11,17 @@ from transformers import (
     Qwen2ForCausalLM
 )
 
-# Import libraries from TRL (Transformers Reinforcement Learning)
 from trl import (
     GRPOConfig, 
     GRPOTrainer
 )
 
-#source openr1/bin/activate
 from dataset import load_polaris_dataset, validate_dataset
 from loss import get_reward_functions
 from callbacks.compute_metric import ComputeMetricsCallback
 from trl.trainer.utils import selective_log_softmax 
 from munch import Munch
 import wandb
-# wandb.login()
 
 from trl import ModelConfig, get_peft_config
 from datetime import datetime
@@ -44,12 +39,6 @@ from trl.trainer.utils import pad, selective_log_softmax
 from transformers import Trainer
 import logging
 
-# import os
-# os.environ["WANDB_CONSOLE"] = "wrap"
-
-# logger = logging.getLogger()
-# logger.setLevel(logging.DEBUG)  # Set to DEBUG to capture all levels
-
 DEFAULT_CHAT_TEMPLATE = "{% for message in messages %}\n{% if message['role'] == 'user' %}\n{{ '<|user|>\n' + message['content'] + eos_token }}\n{% elif message['role'] == 'system' %}\n{{ '<|system|>\n' + message['content'] + eos_token }}\n{% elif message['role'] == 'assistant' %}\n{{ '<|assistant|>\n'  + message['content'] + eos_token }}\n{% endif %}\n{% if loop.last and add_generation_prompt %}\n{{ '<|assistant|>' }}\n{% endif %}\n{% endfor %}"
 
 
@@ -57,7 +46,6 @@ def get_tokenizer(
     model_args: ModelConfig, training_args, auto_set_chat_template: bool = True
 ) -> PreTrainedTokenizer:
     """Get the tokenizer for the model."""
-    # https://github.com/huggingface/open-r1/blob/eeca246b078457bc0f69ba2e8297b799df0e2bda/src/open_r1/utils/model_utils.py#L11
     tokenizer = AutoTokenizer.from_pretrained(
         model_args.model_name_or_path,
         revision=model_args.model_revision,
@@ -81,20 +69,12 @@ def get_model(model_name, attn_implementation="flash_attention_2", device="cuda:
         model_name,
         trust_remote_code=True,
         torch_dtype=torch.bfloat16,
-        device_map=device, #TODO: how it affects the ddp https://huggingface.co/openai/whisper-large-v3/discussions/63
-        low_cpu_mem_usage=True, #TODO: ??
-        # use_safetensors=True, #TODO: ??
+        device_map=device,
+        low_cpu_mem_usage=True,
         **kwargs_dict
     )
 
-    print(f"Model parameters: {model.num_parameters():,}")
-
-    # Check CUDA availability
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    # device = "cpu"
-    print(f"Using device: {device}")
-
-    # Move model to the appropriate device
     model.to(device)
 
     return model
@@ -116,7 +96,6 @@ def get_dataset(params=["MLM", "HLM", "KSOL", "LogD", "MDR1-MDCKII"], subset_tra
     return dataset
 
 
-# Define GRPOScriptArguments for reward function parameters
 @dataclass
 class GRPOScriptArguments:
     """
@@ -124,10 +103,8 @@ class GRPOScriptArguments:
     """
 
     reward_funcs: list[str] = field(
-        default_factory=lambda: ["accuracy", "compute_mae_v2"], #, "mae_not_reward"],
-                                 #, "format", "reasoning_steps", "repetition_penalty"], #TODO: reasoning and repetition are mot the best, add thinking length reward
+        default_factory=lambda: ["accuracy", "compute_mae_v2"],
         metadata={
-            # "help": "List of reward functions. Possible values: 'accuracy', 'format', 'reasoning_steps', 'cosine', 'repetition_penalty'"
             "help": "List of reward functions. Possible values: 'accuracy', 'format', 'reasoning_steps', 'repetition_penalty'"        },
     )
 
@@ -142,23 +119,17 @@ class GRPOScriptArguments:
 
 class GRPOTrainer2(GRPOTrainer):
 
-    # Get the per-token log probabilities for the completions for the model and the reference model
     def _get_per_token_logps(self, model, input_ids, attention_mask, logits_to_keep):
-        # We add 1 to `logits_to_keep` because the last logits of the sequence is later excluded
-        # print(input_ids[0].shape)
         logits = model(input_ids=input_ids, attention_mask=attention_mask, logits_to_keep=logits_to_keep + 1, use_cache=False).logits
-        logits = logits[:, :-1, :]  # (B, L-1, V), exclude the last logit: it corresponds to the next token pred
+        logits = logits[:, :-1, :]
 
         input_ids = input_ids[:, -logits_to_keep:]
-        # For transformers<=4.48, logits_to_keep argument isn't supported, so here we drop logits ourselves.
-        # See https://github.com/huggingface/trl/issues/2770
         logits = logits[:, -logits_to_keep:]
-        return selective_log_softmax(logits, input_ids)  #  compute logprobs for the input tokens
+        return selective_log_softmax(logits, input_ids)
     
     def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
         if return_outputs:
             raise ValueError("The GRPOTrainer does not support returning outputs")
-        # Compute the per-token log probabilities for the model
 
         prompt_ids, prompt_mask = inputs["prompt_ids"], inputs["prompt_mask"]
         completion_ids, completion_mask = inputs["completion_ids"], inputs["completion_mask"]
@@ -168,35 +139,30 @@ class GRPOTrainer2(GRPOTrainer):
 
         per_token_logps = self._get_per_token_logps(model, input_ids, attention_mask, logits_to_keep)
 
-        # Compute the KL divergence between the model and the reference model
         if self.beta != 0.0:
             ref_per_token_logps = inputs["ref_per_token_logps"]
             per_token_kl = (
                 torch.exp(ref_per_token_logps - per_token_logps) - (ref_per_token_logps - per_token_logps) - 1
             )
 
-        # x - x.detach() allows for preserving gradients from x
         advantages = inputs["advantages"]
         per_token_loss = -torch.exp(per_token_logps - per_token_logps.detach()) * advantages.unsqueeze(1)
         if self.beta != 0.0:
             per_token_loss = per_token_loss + self.beta * per_token_kl
         loss = (per_token_loss * completion_mask).sum() / completion_mask.sum()
 
-        # Log the metrics
         completion_length = self.accelerator.gather_for_metrics(completion_mask.sum(1)).float().mean().item()
         self._metrics["completion_length"].append(completion_length)
 
         if self.beta != 0.0:
             mean_kl = ((per_token_kl * completion_mask).sum(dim=1) / completion_mask.sum(dim=1)).mean()
             self._metrics["kl"].append(self.accelerator.gather_for_metrics(mean_kl).mean().item())
-        # print(loss, advantages) 
         return loss
     
-    # TODO: When updating trl version this may migrate to generate function
+    
     def _prepare_inputs(self, inputs: dict[str, Union[torch.Tensor, Any]]) -> dict[str, Union[torch.Tensor, Any]]:
         device = self.accelerator.device
         prompts = [x["prompt"] for x in inputs]
-        # smiles = [x["smiles"] for x in inputs] #TODO: debug
         prompts_text = [maybe_apply_chat_template(example, self.processing_class)["prompt"] for example in inputs]
         prompt_inputs = self.processing_class(
             prompts_text, return_tensors="pt", padding=True, padding_side="left", add_special_tokens=False
@@ -208,7 +174,6 @@ class GRPOTrainer2(GRPOTrainer):
             prompt_ids = prompt_ids[:, -self.max_prompt_length :]
             prompt_mask = prompt_mask[:, -self.max_prompt_length :]
 
-        # Generate completions using either vLLM or regular generation
         if self.args.use_vllm:
             # First, have main process load weights if needed
             if self.state.global_step != self._last_loaded_step:
@@ -320,8 +285,7 @@ class GRPOTrainer2(GRPOTrainer):
 
         # Apply weights to each reward function's output and sum
         rewards = (rewards_per_func * self.reward_weights[:rewards_len].to(device).unsqueeze(0)).sum(dim=1)
-        # print(self.reward_weights.to(device).unsqueeze(0), rewards, rewards.mean().item(), rewards_per_func, rewards_per_func.mean(0))
-
+       
         # Compute grouped-wise rewards
         mean_grouped_rewards = rewards.view(-1, self.num_generations).mean(dim=1)
         std_grouped_rewards = rewards.view(-1, self.num_generations).std(dim=1)
@@ -350,47 +314,6 @@ class GRPOTrainer2(GRPOTrainer):
 
         self._metrics["reward"].append(rewards.mean().item())
         self._metrics["reward_std"].append(std_grouped_rewards.mean().item())
-
-        # if (
-        #     self.log_completions
-        #     and self.state.global_step % self.args.logging_steps == 0
-        #     and "wandb" in self.args.report_to
-        # ):
-        #     import pandas as pd
-
-        #     # For logging
-        #     table = {
-        #         "step": [self.state.global_step] * len(rewards), #TODO: debug
-        #         "prompt": gather_object(prompts_text),
-        #         "completion": gather_object(completions_text),
-        #         "reward": rewards.tolist(),
-        #     }
-        #     df = pd.DataFrame(table)
-
-        #     # if wandb.run is not None and self.accelerator.is_main_process:
-        #     #     wandb.log({"completions": wandb.Table(dataframe=df)})
-
-        #     # if wandb.run is not None and self.accelerator.is_main_process:
-        #     #     if "completions_table" not in wandb.run.summary:  # First-time initialization
-        #     #         wandb.run.summary["completions_table"] = wandb.Table(columns=["step", "prompt", "completion", "reward"])
-                
-        #     #     table = wandb.run.summary["completions_table"]
-                
-        #     #     for _, row in df.iterrows():
-        #     #         table.add_data(row["step"], row["prompt"], row["completion"], row["reward"])
-                
-        #     #     wandb.log({"completions": table})  # Log without overriding previous data
-
-        #     if wandb.run is not None and self.accelerator.is_main_process:
-        #         if not hasattr(wandb.run, "summary") or "completions_table" not in wandb.run.summary:
-        #             wandb.run.summary["completions_table"] = wandb.Table(columns=["step", "prompt", "completion", "reward"])
-
-        #         table = wandb.run.summary["completions_table"]
-
-        #         for _, row in df.iterrows():
-        #             table.add_data(row["step"], row["prompt"], row["completion"], row["reward"])
-
-        #         wandb.log({"completions": table})
 
         if (
             self.log_completions
@@ -624,29 +547,13 @@ def main():
         default="cuda:0",
         help="String n the form cuda:0, id of device id to host vllm"
     )
-    #TODO: get default scheduler
-    #TODO: get all global paths
 
     args = parser.parse_args()
-    # Prepare keyword arguments for the trainer.
     trainer_kwargs = {}
     if args.resume_from_checkpoint is not None:
         trainer_kwargs['resume_from_checkpoint'] = args.resume_from_checkpoint
 
-    # "./outputs/2025-02-26/20-13-13"
-    # MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
-    MODEL_NAME = args.model_name # "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
-    # MODEL_NAME = "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B" #DeepSeek-R1-Distill-Qwen-1.5B-GRPO
-    # MODEL_NAME = "nickypro/tinyllama-15M"
-
-    # https://github.com/huggingface/open-r1/blob/main/recipes/DeepSeek-R1-Distill-Qwen-1.5B/grpo/config_demo.yaml
-    # chat_template: "{% if not add_generation_prompt is defined %}{% set add_generation_prompt = false %}{% endif %}{% set ns = namespace(is_first=false, is_tool=false, is_output_first=true, system_prompt='') %}{%- for message in messages %}{%- if message['role'] == 'system' %}{% set ns.system_prompt = message['content'] %}{%- endif %}{%- endfor %}{{bos_token}}{{ns.system_prompt}}{%- for message in messages %}{%- if message['role'] == 'user' %}{%- set ns.is_tool = false -%}{{'<｜User｜>' + message['content']}}{%- endif %}{%- if message['role'] == 'assistant' and message['content'] is none %}{%- set ns.is_tool = false -%}{%- for tool in message['tool_calls']%}{%- if not ns.is_first %}{{'<｜Assistant｜><｜tool▁calls▁begin｜><｜tool▁call▁begin｜>' + tool['type'] + '<｜tool▁sep｜>' + tool['function']['name'] + '\\n' + '```json' + '\\n' + tool['function']['arguments'] + '\\n' + '```' + '<｜tool▁call▁end｜>'}}{%- set ns.is_first = true -%}{%- else %}{{'\\n' + '<｜tool▁call▁begin｜>' + tool['type'] + '<｜tool▁sep｜>' + tool['function']['name'] + '\\n' + '```json' + '\\n' + tool['function']['arguments'] + '\\n' + '```' + '<｜tool▁call▁end｜>'}}{{'<｜tool▁calls▁end｜><｜end▁of▁sentence｜>'}}{%- endif %}{%- endfor %}{%- endif %}{%- if message['role'] == 'assistant' and message['content'] is not none %}{%- if ns.is_tool %}{{'<｜tool▁outputs▁end｜>' + message['content'] + '<｜end▁of▁sentence｜>'}}{%- set ns.is_tool = false -%}{%- else %}{% set content = message['content'] %}{{'<｜Assistant｜>' + content + '<｜end▁of▁sentence｜>'}}{%- endif %}{%- endif %}{%- if message['role'] == 'tool' %}{%- set ns.is_tool = true -%}{%- if ns.is_output_first %}{{'<｜tool▁outputs▁begin｜><｜tool▁output▁begin｜>' + message['content'] + '<｜tool▁output▁end｜>'}}{%- set ns.is_output_first = false %}{%- else %}{{'\\n<｜tool▁output▁begin｜>' + message['content'] + '<｜tool▁output▁end｜>'}}{%- endif %}{%- endif %}{%- endfor -%}{% if ns.is_tool %}{{'<｜tool▁outputs▁end｜>'}}{% endif %}{% if add_generation_prompt and not ns.is_tool %}{{'<｜Assistant｜>'}}{% endif %}"
-    # dataset_name: open-r1/OpenR1-Math-220k
-    # dataset_configs:
-    # - default
-    # system_prompt: "You are a helpful AI Assistant that provides well-reasoned and detailed responses. You first think about the reasoning process as an internal monologue and then provide the user with the answer. Respond in the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>"
-
-    #TODO: reward function range
+    MODEL_NAME = args.model_name
 
     wandb.init(project="admet-challenge")
     wandb.config.update({"log_model": False})
@@ -655,33 +562,13 @@ def main():
     model_args_i = Munch.fromDict({
         "model_name_or_path": MODEL_NAME,
         "model_revision": "main",
-        "trust_remote_code": False # TODO: everyboudy sets to True and default is True
+        "trust_remote_code": False
         })
     training_args_i = Munch.fromDict({"chat_template": "{% if not add_generation_prompt is defined %}{% set add_generation_prompt = false %}{% endif %}{% set ns = namespace(is_first=false, is_tool=false, is_output_first=true, system_prompt='') %}{%- for message in messages %}{%- if message['role'] == 'system' %}{% set ns.system_prompt = message['content'] %}{%- endif %}{%- endfor %}{{bos_token}}{{ns.system_prompt}}{%- for message in messages %}{%- if message['role'] == 'user' %}{%- set ns.is_tool = false -%}{{'<｜User｜>' + message['content']}}{%- endif %}{%- if message['role'] == 'assistant' and message['content'] is none %}{%- set ns.is_tool = false -%}{%- for tool in message['tool_calls']%}{%- if not ns.is_first %}{{'<｜Assistant｜><｜tool▁calls▁begin｜><｜tool▁call▁begin｜>' + tool['type'] + '<｜tool▁sep｜>' + tool['function']['name'] + '\\n' + '```json' + '\\n' + tool['function']['arguments'] + '\\n' + '```' + '<｜tool▁call▁end｜>'}}{%- set ns.is_first = true -%}{%- else %}{{'\\n' + '<｜tool▁call▁begin｜>' + tool['type'] + '<｜tool▁sep｜>' + tool['function']['name'] + '\\n' + '```json' + '\\n' + tool['function']['arguments'] + '\\n' + '```' + '<｜tool▁call▁end｜>'}}{{'<｜tool▁calls▁end｜><｜end▁of▁sentence｜>'}}{%- endif %}{%- endfor %}{%- endif %}{%- if message['role'] == 'assistant' and message['content'] is not none %}{%- if ns.is_tool %}{{'<｜tool▁outputs▁end｜>' + message['content'] + '<｜end▁of▁sentence｜>'}}{%- set ns.is_tool = false -%}{%- else %}{% set content = message['content'] %}{{'<｜Assistant｜>' + content + '<｜end▁of▁sentence｜>'}}{%- endif %}{%- endif %}{%- if message['role'] == 'tool' %}{%- set ns.is_tool = true -%}{%- if ns.is_output_first %}{{'<｜tool▁outputs▁begin｜><｜tool▁output▁begin｜>' + message['content'] + '<｜tool▁output▁end｜>'}}{%- set ns.is_output_first = false %}{%- else %}{{'\\n<｜tool▁output▁begin｜>' + message['content'] + '<｜tool▁output▁end｜>'}}{%- endif %}{%- endif %}{%- endfor -%}{% if ns.is_tool %}{{'<｜tool▁outputs▁end｜>'}}{% endif %}{% if add_generation_prompt and not ns.is_tool %}{{'<｜Assistant｜>'}}{% endif %}"})
     
     tokenizer = get_tokenizer(model_args_i, training_args_i)
     model_args = ModelConfig(model_name_or_path=MODEL_NAME, use_peft=True, lora_r=args.lora_r, lora_alpha=args.lora_alpha, lora_dropout=args.lora_dropout, lora_target_modules=args.lora_target_modules)
-                             #, load_in_8bit=True) # TODO: if run it in a serverless sometimes loading of huggingface weights throws an error
-    # TODO: we now use default lora setting, how do we choose the best configuration 
-    # lora_r=16, lora_alpha=32, lora_dropout=0.05, lora_target_modules=None, lora_modules_to_save=None, lora_task_type='CAUSAL_LM', use_rslora=False, load_in_8bit=False, load_in_4bit=False, bnb_4bit_quant_type='nf4', use_bnb_nested_quant=False
-
-    print("!!!!! Model args", model_args)
-
-    # TODO: get what following parameters people use
-    # task_type=model_args.lora_task_type,
-    #     r=model_args.lora_r,
-    #     target_modules=model_args.lora_target_modules,
-    #     lora_alpha=model_args.lora_alpha,
-    #     lora_dropout=model_args.lora_dropout,
-    #     bias="none",
-    #     use_rslora=model_args.use_rslora,
-    #     modules_to_save=model_args.lora_modules_to_save,
     
-    #TODO: gpu utilization with falsh attention is 24, without 96 (now no difference)
-    #TODO: (DONE) (+) with flash attention throuw warning that flash attention is attemted to be used in a model on cpu
-    # You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with model.to('cuda')
-    # https://huggingface.co/openai/whisper-large-v3/discussions/63 
-    #TODO: falsh_attention no speedup
     model_cuda = "cuda:0"
     model = get_model(MODEL_NAME, attn_implementation="flash_attention_2", device=model_cuda) #TODO: change to "flash_attention_2"
     
@@ -690,72 +577,48 @@ def main():
     else:
         reward_weights = None
 
-    print_trainable_parameters(model)
-    # print("Model attention implementation: ", model.model.text_model._attn_implementation)
-    print("Attention implementation:", model.config._attn_implementation)
-    # for name, module in model.model.named_modules():
-    #     if "attn" in name.lower() or "attention" in name.lower():
-    #         print(name, "->", module.__class__)
-    # dataset = get_dataset(params=["LogD"], rewrite=True, subset_train=50) # TODO: change to default TODO: subset None 50 is 1/4 of the LogD dataset (200)
-    # subset_train=4, subset_valid=4, 
     seed = 42
     dataset = get_dataset(params=["LogD"], rules_prompt_name=args.rules_prompt, rewrite=False, properties=True, seed=seed, subset_train=args.subset_train, subset_valid=args.subset_valid) # TODO: change to default TODO: subset None 50 is 1/4 of the LogD dataset (200)
-    print(len(dataset["train"]), len(dataset["validation"]), len(dataset["test"]))
-    
+        
     text_table = wandb.Table(columns=["smiles_hash", "steps", "reward", "mae_median", "mae", "completion", "system_input", "user_prompt", "answer_parsed", "asnwer_val", "gold_val"])
     text_table_current = wandb.Table(columns=["smiles_hash", "steps", "reward", "mae_median", "mae", "completion", "system_input", "user_prompt", "answer_parsed", "asnwer_val", "gold_val"])
     reward_funcs_names = args.reward_funcs.split(",")
     script_args = GRPOScriptArguments(reward_funcs=reward_funcs_names)
     reward_functions = get_reward_functions(script_args, mae_thr=None, table=text_table, text_table_current=text_table_current) #TODO: check trl they had someshere gpro example and used different rewards including lenght reward
     
-    # "dirpath": f"{os.environ.get('AIP_MODEL_DIR', './outputs/')}{now:%Y-%m-%d}/{now:%H-%M-%S}"
     training_args = TrainingArguments(
         output_dir=f"{os.environ.get('OUTPUT_DIR')}{now:%Y-%m-%d}/{now:%H-%M-%S}", #"./output",
         logging_dir="./logs/wandb/",
         num_train_epochs=args.num_train_epochs,             # Total number of training epochs
-        per_device_train_batch_size=args.per_device_train_batch_size,  # Batch size per device during training TODO: change to 16
-        per_device_eval_batch_size=args.per_device_eval_batch_size,   # Batch size for evaluation TODO: why it says this   File "/home/alisavin/AgenticADMET/train.py", line 534, in <module>
-        gradient_accumulation_steps=args.gradient_accumulation_steps, #4,  # Accumulate gradients to simulate larger batch size
-        # learning_rate=1e-6,            # TODO: Initial learning rate for AdamW optimizer
-        # learning_rate=2.0e-05, # took tuners https://github.com/Mryangkaitong/deepseek-r1-gsm8k/blob/main/recipes/DeepSeek-R1-Distill-Qwen-7B/grpo/config_demo.yaml
-        learning_rate=args.lr, # took tuners https://github.com/Mryangkaitong/deepseek-r1-gsm8k/blob/main/recipes/DeepSeek-R1-Distill-Qwen-7B/grpo/config_demo.yaml
-        warmup_ratio=args.warmup_ratio,              # Linear warmup over warmup_ratio fraction of training steps
-        weight_decay=args.weight_decay,             # Apply weight decay to all layers except bias and LayerNorm weights
+        per_device_train_batch_size=args.per_device_train_batch_size,
+        per_device_eval_batch_size=args.per_device_eval_batch_size,
+        gradient_accumulation_steps=args.gradient_accumulation_steps,
+        learning_rate=args.lr,
+        warmup_ratio=args.warmup_ratio,
+        weight_decay=args.weight_decay,
         warmup_steps=args.warmup_steps,
-        logging_steps=args.logging_steps,              # Log every X updates steps TODO: change based on number of steps
+        logging_steps=args.logging_steps,
         logging_strategy="steps",
         logging_first_step=True,
-        evaluation_strategy="epoch",    # Evaluate every `eval_steps`
-        save_strategy="epoch",      # Disables regular checkpoints
-        save_total_limit=1,      # Makes sure no checkpoints are kept
-        load_best_model_at_end=False,  # Disables saving the best model
-        # save_steps=0,            # No saving at specific steps
-        dataloader_num_workers=args.dataloader_num_workers,      # Number of subprocesses to use for data loading
-        seed=seed,                       # Random seed for reproducibility
-        bf16=True,                     # Use mixed precision BFP16 training #TODO: ??????
-        push_to_hub=False,             # Whether to push the final model to Hugging Face Hub
-        report_to=["wandb"],              # Reporting to no one
+        evaluation_strategy="epoch",
+        save_strategy="epoch",
+        save_total_limit=1,
+        load_best_model_at_end=False,
+        dataloader_num_workers=args.dataloader_num_workers,
+        seed=seed,
+        bf16=True,
+        push_to_hub=False,
+        report_to=["wandb"],
         run_name="test",
         disable_tqdm=False,
-        gradient_checkpointing=True,   # Enable gradient checkpointing        
+        gradient_checkpointing=True,
         remove_unused_columns=False,
-        do_eval=False, #TODO: use
-        gradient_checkpointing_kwargs={"use_reentrant": False}, # TODO: use
+        do_eval=False,
+        gradient_checkpointing_kwargs={"use_reentrant": False},
         lr_scheduler_type=args.lr_scheduler_type,
-        # ---------
-        # # TODO
-        # # log_completions=True,
-        # # log_level="info",
-        # lr_scheduler_type="cosine_with_min_lr", #TODO: before trained with cosine with min lr
-        # lr_scheduler_type="cosine", #TODO: tuners https://github.com/Mryangkaitong/deepseek-r1-gsm8k/blob/5dcf23a94b17dd970a142183c6bdbcadf1a75f47/recipes/DeepSeek-R1-Distill-Qwen-7B/grpo/config_demo.yaml#L39
-        # lr_scheduler_kwargs={"min_lr_rate": 0.1}, #TODO: before used
-        max_steps=-1, #TODO: change to -1
-        eval_steps=args.eval_steps, #TODO: change to -1
-        # log_level="debug"
+        max_steps=-1,
+        eval_steps=args.eval_steps,
 )
-    
-    #TODO: reward, for each property set threashold for MAE to set to range 0 to 1
-    #TODO: loss always 0
 
     grpo_config = GRPOConfig(
         **training_args.to_dict(), # Convert TrainingArguments to dictionary and unpack
@@ -773,108 +636,28 @@ def main():
         temperature=args.eval_temperature, # TODO: temperature for math task
         reward_weights=reward_weights,
         log_completions=False,
-        # ds3_gather_for_generation=False # https://github.com/huggingface/trl/blob/a1c58aa42ae4999f462e83cd36f82de34499e245/trl/trainer/grpo_config.py#L54C9-L54C34
         )
 
-    # for l in dataset['train']:
-    #     print(len(l["prompt"][0]["content"])+len(l["prompt"][1]["content"]))
-
-    # # TODO: does it help
-    # peft_config = get_peft_config(model_args)
-    # peft_config.label_names = ["prompt", "solution", "property", "smiles"]
-
     grpo_trainer = GRPOTrainer2(
-        model=model,                      # Our initialized Qwen model
-        reward_funcs=reward_functions,    # List of reward functions from previous step
-        args=grpo_config,                # GRPOConfig (created from TrainingArguments)
-        train_dataset=dataset['train'],   # Training dataset
-        eval_dataset=dataset['validation'],    # Evaluation dataset
-        # callbacks=callbacks              # List of callbacks
-        processing_class=tokenizer, #TODO: check callback from config
-        peft_config=get_peft_config(model_args), #TODO: check # label_names
-        # callbacks=[ComputeMetricsCallback]  # Add callback
+        model=model,                     
+        reward_funcs=reward_functions, 
+        args=grpo_config,              
+        train_dataset=dataset['train'],
+        eval_dataset=dataset['validation'],
+        processing_class=tokenizer,
+        peft_config=get_peft_config(model_args)
     )
     
     print_trainable_parameters(grpo_trainer.model)
 
-    # Start the GRPO Training Loop
     try:
         train_result = grpo_trainer.train(**trainer_kwargs)
         wandb.log({"training_samples" : text_table})
     except KeyboardInterrupt:
         print("Training interrupted! Cleaning up...")
     finally:
-        # This block runs whether training finishes successfully
-        # or a KeyboardInterrupt occurs, or anything except a SIGKILL
         wandb.log({"training_samples": text_table})
         wandb.finish()
 
-    #TODO: LoRa isage produces error
-    # pip install --upgrade --no-cache-dir --no-deps unsloth 
-
-    #TODO: check if there is memory consumption bug
-    #https://github.com/huggingface/trl/issues/2719
-    # TODO: check if we can use deepspeed useing the accelerate script
-
-    #TODO: no padding with whash attention, packing whould be True
-    #https://github.com/huggingface/transformers/issues/28130
-
-    #TODO: model supports multiple tasks: {'embed', 'reward', 'generate', 'score', 'classify'}. Defaulting to 'generate'.
-    # WARNING 02-24 05:09:24 arg_utils.py:1145] The model has a long context length (131072). This may cause OOM errors during the initial memory profiling phase, or result in low performance due to small KV cache space. Consider setting --max-model-len to a smaller value.
-    # INFO 02-24 05:09:24 llm_engine.py:234] 
-
-    #TODO: save checkpoints
-    
-    #TODO: WARNING 02-24 18:05:56 arg_utils.py:1145] The model has a long context length (131072). This may cause OOM errors during the initial memory profiling phase, or result in low performance due to small KV cache space. Consider setting --max-model-len to a smaller value.
-    # Memory Requirements: https://discuss.huggingface.co/t/llama-7b-gpu-memory-requirement/34323/8
-
-    # TODO: Done (+) Why loss starts from 0 https://github.com/huggingface/open-r1/issues/239
-
 if __name__ == "__main__":
     main()
-
-
-
-# huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-# To disable this warning, you can either:
-#         - Avoid using `tokenizers` before the fork if possible
-#         - Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-# huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-# To disable this warning, you can either:
-#         - Avoid using `tokenizers` before the fork if possible
-#         - Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-# huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-# To disable this warning, you can either:
-#         - Avoid using `tokenizers` before the fork if possible
-#         - Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-# huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-# To disable this warning, you can either:
-#         - Avoid using `tokenizers` before the fork if possible
-#         - Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-
-# Lipinsky's rules define conditions under witch the molecule has the optimal absorbtion
-
-# TODO: save generations
-
-#TODO: ensure lora checkpoint is loaded
-
-#TODO: check how "equations is deprecated, as it handled by the parser now" is thrown
-#TODO: current prompt does not produce answer, but consistently puts final result in the last sentence inside \\boxed{}
-#TODO: track generations at training 
-# {Use computational tools like Dragon, LogE, ; ZINDAQ to calculate LogD using the given SMILES input.
-# TODO: openr1 training recepy https://github.com/huggingface/open-r1/blob/main/src/open_r1/grpo.py
-#TODO: log mae, check if it is the same as in a contest
-#Whats with the resonings steps, do they grow, why not
-
-#TODO: report median
-
-#TODO: TODO: warmup from smaller learning rate
-
-#TODO: !!! This does not support ddp
-
-# /home/alisavin/AgenticADMET/openr1/lib/python3.11/site-packages/transformers/trainer.py:3423: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
-#   torch.load(os.path.join(checkpoint, OPTIMIZER_NAME), map_location=map_location)
-# Warning: The following arguments do not match the ones in the `trainer_state.json` within the checkpoint directory:
-#         logging_steps: 1 (from args) != 10 (from trainer_state.json)
-#   0%|                                                                                                              | 0/60 [00:00<?, ?it/s]/home/alisavin/AgenticADMET/openr1/lib/python3.11/site-packages/transformers/trainer.py:3119: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
-#   checkpoint_rng_state = torch.load(rng_file)

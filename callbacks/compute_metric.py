@@ -29,8 +29,6 @@ class ComputeMetricsCallback(TrainerCallback):
         predictions = state.predict(eval_dataloader).predictions
         labels = state.predict(eval_dataloader).label_ids
 
-        # Extract SMILES inputs from dataset if available
-        # inputs = getattr(trainer.eval_dataset, 'smiles', None)
         inputs_smiles = getattr(state.eval_dataset, 'smiles', None)
         inputs_prompts = getattr(state.eval_dataset, 'prompts', None)
         if inputs_smiles is None:
@@ -100,7 +98,6 @@ class ComputeMetricsCallback(TrainerCallback):
 
         # Log results
         if "wandb" in args.report_to:
-            print("Report!!!!!!!!")
             wandb.log({"eval/median_mae": median_mae}, step=state.global_step)
             wandb.log({"training_samples" : text_table})
 

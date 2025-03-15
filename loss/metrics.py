@@ -93,10 +93,5 @@ def compute_metrics(eval_pred):
     metrics = {
         "median_mse": np.mean(median_maes) if median_maes else float('inf')
     }
-
-    # if table is not None:
-    #     for v_i in v:
-    #         table.add_data(k, mae_median, v_i["mae"], v_i["completion"], v_i["system_input"], v_i["user_prompt"], v_i["answer_parsed"], v_i["answer_val"], v_i["gold_val"]) 
-
     
     return metrics
