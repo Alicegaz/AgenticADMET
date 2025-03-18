@@ -1,5 +1,6 @@
 dvc[gs]
-# funcy==1.17   # fix for DVC
+google-cloud-aiplatform
+IPython==8
 numpy
 pandas
 ray[default]
