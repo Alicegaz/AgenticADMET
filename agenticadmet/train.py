@@ -16,7 +16,7 @@ from trl import (
     GRPOTrainer
 )
 
-from dataset import load_polaris_dataset, validate_dataset
+from rl_dataset import load_polaris_dataset, validate_dataset
 from loss import get_reward_functions
 from callbacks.compute_metric import ComputeMetricsCallback
 from trl.trainer.utils import selective_log_softmax 

@@ -7,7 +7,8 @@ from functools import partial
 from .rules import rules, rules_long, rules_v2, rules_v3, rules_v4, rules_v5
 import os
 
-DIR_PATH = Path(os.path.dirname(os.path.abspath(__file__)))
+DIR_PATH = Path(__file__).parent / "data/asap/datasets/rl"
+DIR_PATH.mkdir(parents=True, exist_ok=True)
 
 RULES_MAPPING = {
     "rules_v3": rules_v3,
