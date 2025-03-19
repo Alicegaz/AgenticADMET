@@ -1,4 +1,5 @@
 # Solution for ASAP Antiviral ADMET 2025 challenge on Polaris
+See [report](https://docs.google.com/document/d/16y9EtElTmJ-p0bAYjJaNgkU8WP-CYz77lhHB2oxkTc4/edit?usp=sharing) for understanding why the submission is so simple. Spoiler: because what is left here is just Gemini fine-tuning over Google Cloud API!
 
 ## Install dependencies
 Install Miniconda with [official instructions](https://docs.anaconda.com/miniconda/install/). Then set up the environment:
