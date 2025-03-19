@@ -14,4 +14,4 @@ pip install -r requirements.txt
 Go to `notebooks` folder and apply notebooks one-by-one according to prefix numbers starting with `notebooks/1.1_download_polaris_data.ipynb`. Have fun!
 
 ## (Optional) all experiments
-If you want to see all experiments inlcuding Reinforcement Learning with reasoning, Gemini/GPT fine-tuning attempts, Chemprop and RoBERTa training, go to the branch `submission-and-experiments`
+If you want to see all experiments inlcuding Reinforcement Learning with reasoning, Gemini/GPT fine-tuning attempts, Chemprop and RoBERTa training, go to the branch `all-experiments`
